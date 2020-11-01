@@ -11,7 +11,7 @@ func NewCmdFuse(clientGetter genericclioptions.RESTClientGetter) *cobra.Command 
 		Short:             `Fuse YAMLs`,
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
-			
+
 		},
 	}
 	return cmd
