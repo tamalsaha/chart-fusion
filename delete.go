@@ -63,7 +63,6 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 	return cmd
 }
 
-
 func AddFilenameOptionFlags(cmd *cobra.Command, options *resource.FilenameOptions, usage string) {
 	AddJsonFilenameFlag(cmd.Flags(), &options.Filenames, "Filename, directory, or URL to files "+usage)
 	cmd.Flags().BoolVarP(&options.Recursive, "recursive", "R", options.Recursive, "Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.")

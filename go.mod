@@ -5,13 +5,13 @@ go 1.15
 require (
 	github.com/appscode/go v0.0.0-20200928211031-cc0c23082d91
 	github.com/spf13/cobra v0.0.5
-	k8s.io/apimachinery v0.18.9
+	github.com/spf13/pflag v1.0.5
 	k8s.io/cli-runtime v0.18.9
 	k8s.io/client-go v0.18.9
 	k8s.io/component-base v0.18.9
 	k8s.io/kubectl v0.18.9
 	kmodules.xyz/client-go v0.0.0-20201021051118-03dac1aea508
-	kmodules.xyz/openshift v0.0.0-20200922211657-1ece16d36c18
+	sigs.k8s.io/yaml v1.2.0
 )
 
 // release-1.18
