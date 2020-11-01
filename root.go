@@ -51,7 +51,7 @@ func NewRootCmd() *cobra.Command {
 	f := cmdutil.NewFactory(matchVersionKubeConfigFlags)
 
 	rootCmd.AddCommand(v.NewCmdVersion())
-	rootCmd.AddCommand(NewCmdDelete(f))
+	rootCmd.AddCommand(NewCmdFuse(f))
 
 	return rootCmd
 }

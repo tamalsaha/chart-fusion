@@ -5,11 +5,14 @@ import (
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
-func NewCmdDelete(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
+func NewCmdFuse(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:               "delete",
-		Short:             `Delete stash resources`,
+		Use:               "fuse",
+		Short:             `Fuse YAMLs`,
 		DisableAutoGenTag: true,
+		Run: func(cmd *cobra.Command, args []string) {
+			
+		},
 	}
 	return cmd
 }
