@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/appscode/go/log"
+	"gomodules.xyz/x/log"
 	_ "k8s.io/client-go/kubernetes/fake"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"kmodules.xyz/client-go/logs"

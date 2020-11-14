@@ -49,7 +49,8 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				}
 
 				fmt.Println(string(data))
-				fmt.Println("-------------------------------------")
+				fmt.Println("-------------------------------------." +
+					"What are ")
 
 				return nil
 			})

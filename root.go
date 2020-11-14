@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 
-	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
+	v "gomodules.xyz/x/version"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	cliflag "k8s.io/component-base/cli/flag"
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
