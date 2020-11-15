@@ -22,6 +22,8 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				return err
 			}
 
+			cmdNamespace = "xyz"
+			enforceNamespace = false
 			r := f.NewBuilder().
 				Unstructured().
 				Local().
@@ -49,8 +51,8 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				}
 
 				fmt.Println(string(data))
-				fmt.Println("-------------------------------------." +
-					"What are ")
+				fmt.Println("-------------------------------------|" +
+					 info.Name + "|" + info.Namespace + "|" + info.Source)
 
 				return nil
 			})
