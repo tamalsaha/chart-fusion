@@ -36,6 +36,7 @@ func NewRootCmd() *cobra.Command {
 
 	rootCmd.AddCommand(v.NewCmdVersion())
 	rootCmd.AddCommand(NewCmdFuse(f))
+	rootCmd.AddCommand(NewCmdMerge())
 
 	return rootCmd
 }

@@ -52,7 +52,7 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 
 				fmt.Println(string(data))
 				fmt.Println("-------------------------------------|" +
-					 info.Name + "|" + info.Namespace + "|" + info.Source)
+					info.Name + "|" + info.Namespace + "|" + info.Source)
 
 				return nil
 			})
