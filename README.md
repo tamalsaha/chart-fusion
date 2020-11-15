@@ -21,3 +21,7 @@ Get names of each resource
       spec:
       # remove status
 ```
+
+```
+helm template kubedb kubedb > /home/tamal/go/src/github.com/tamalsaha/chart-fusion/kubedb/chart.yaml
+```

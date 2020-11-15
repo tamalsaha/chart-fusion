@@ -3,11 +3,11 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -34,12 +34,12 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 ---
@@ -47,28 +47,28 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: RELEASE-NAME-kubedb-apiserver-cert
+  name: kubedb-apiserver-cert
   namespace: default
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 type: Opaque
 data:
-  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURRRENDQWlpZ0F3SUJBZ0lSQUsxMDdTdms3TzY5eHBnSERlR0FVZ0F3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdIaGNOTWpBeE1URTFNak13TnpVNVdoY05NekF4TVRFek1qTXdOelU1V2pBZQpNUnd3R2dZRFZRUURFeE5TUlV4RlFWTkZMVTVCVFVVdGEzVmlaV1JpTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGCkFBT0NBUThBTUlJQkNnS0NBUUVBdU81RlovN0dTU2d3UlB5L0pZV2h0cDdFaXBIdkVsSXB3Q2h4dTR1TDFWU3YKalBqdXRrODJYRHBNeGhjdlVDTU9OZFFPOWQwUnVETG9NcnMwKzRHMnZiZmhlN01wN0FjTjdsblF5cktaUUQ5aAoyM1k3MEc3aE5nVUV6MUM2WDA2UmkwVW9tWng5UGxqUG9RYk5LSXV4VjE5c1VVOGk1WXNVa0dEcjVzRGRnTENUCitSTzJFTlhvN294SStqbFNyNStPaHR5MG5KSjRJVW04RzRaM0cwQ0VuM213WXA4M1R5VVVkOVpUdGQ4SklURkEKdU1hSk55ZzR5OUlMOUNSWXY2Q3UyZWQ1OFRQNjBiRjBHQVBDYmNoUE0yeW9oU3JLS3pDTnZTTW9xcjh0Nld5Zwpqbng5QUZudG0vU3JrMElFeVFkQnBNVjFOYVI5cFVCcU9xc3B0WHk3ZXdJREFRQUJvNEdKTUlHR01BNEdBMVVkCkR3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3REFZRFZSMFQKQVFIL0JBSXdBREJIQmdOVkhSRUVRREErZ2h0U1JVeEZRVk5GTFU1QlRVVXRhM1ZpWldSaUxtUmxabUYxYkhTQwpIMUpGVEVWQlUwVXRUa0ZOUlMxcmRXSmxaR0l1WkdWbVlYVnNkQzV6ZG1Nd0RRWUpLb1pJaHZjTkFRRUxCUUFECmdnRUJBRmJZV3Z4VERraXpIa2xNZ2l6SVlpMkp0UjZSQ3NyeGRPQlhEL241SnpFMk5VaFNocVBja2NuNjhFVzgKQzRvVE5POWFJVlQxUTdFaHFQdlFDdE51dU5YTVRNcFl1TSt4bmVqN3FzcUkxY0h6VnF4VjZPdkFDb01MQmlndApVTHpYZGNWZ1FNQkVsZi9abnRCM0Y0V1p3VU0wVFl4bmlzNnN4UzNxbWpEOEhjNG8yWEF3UTE3QnZISm55YUJaCjN6VG96Tnh0VEhYVUpVNjVYbE14QjRMM1BjTGgrZS94bDN3UWlPbFFnSW1TbzRzSTFzK3pVenJRLzVHeW1JV1kKcUxQcW9tSDZmbDY4ckZGbEZHL0E5Y0Z5dEt6alB0eFVjd1c0TmZiekNlVGVIejF4T0J6S0V2Nkt5Q3A4ck53ZgpNTzAyZXYrNGdzcERYcmJkcFdGWTZMbFliZVk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBdU81RlovN0dTU2d3UlB5L0pZV2h0cDdFaXBIdkVsSXB3Q2h4dTR1TDFWU3ZqUGp1CnRrODJYRHBNeGhjdlVDTU9OZFFPOWQwUnVETG9NcnMwKzRHMnZiZmhlN01wN0FjTjdsblF5cktaUUQ5aDIzWTcKMEc3aE5nVUV6MUM2WDA2UmkwVW9tWng5UGxqUG9RYk5LSXV4VjE5c1VVOGk1WXNVa0dEcjVzRGRnTENUK1JPMgpFTlhvN294SStqbFNyNStPaHR5MG5KSjRJVW04RzRaM0cwQ0VuM213WXA4M1R5VVVkOVpUdGQ4SklURkF1TWFKCk55ZzR5OUlMOUNSWXY2Q3UyZWQ1OFRQNjBiRjBHQVBDYmNoUE0yeW9oU3JLS3pDTnZTTW9xcjh0Nld5Z2pueDkKQUZudG0vU3JrMElFeVFkQnBNVjFOYVI5cFVCcU9xc3B0WHk3ZXdJREFRQUJBb0lCQUhkZW5nQjl6UUlsNWRweQpCdlF5YU9zWFdxaFRnSzBqeWYxV1hldUFMUGU4SFVEeTRpdGR3Q29TRzhKMTdyMWNrMnlkZ0RhbHh5MU45dUhnClExZmhKOU1ZWVh6V2JrWURXN094MS9zdkE0c2NIbzlwcHp4b2hnaTNmcDVQYnEzY2FrZ3FrUVZ1cE0xY3lGRVoKc2MzdE5jQy9RSXpQZHlnUitXa2tsc0V4VndrY1dGOG9JbWNraVExNWp4UDNhWjVOMUJZbkg0SFRaOHVDSkNKUwpURFZCVDg4Qms0bk9GODNIam1tejBwTGdiWE5nSmlCVkNpNDcwQS9sbnRuV3UvRFBaMEVzMnFDMjVaeEZtVHIzCkZyMFl1aE1BTCswK3pMNjdRN0Fac0tyZG4rWjJjSHJjQ2Rvb2c1RnVJN1RkWnJmeDMyUS9EaXBlaHQ2a2FvRXkKellJcktwa0NnWUVBNWo1RmdjajJEcXNHbzFXM2J1QklTdjdEZDVkTTZXV21CZ3FoTm1iUjJWaGZZQW5jZWlVQQo1eFV4Z2RZQWNoS21DQ0pxRis5QU15bmNiTjhneUtGaHNTdUd5V0swLy9qRnB2d0FpRU1hR3pvckxjckF1NDdjCnhVbUo4c2pyRmsvQ3dyUWpka0VlWkoxOFNJWkJHdnIvSC80ODVvK0E3aWNBQ1BVMkgyRlFicmNDZ1lFQXpaNVYKOWtTL0FtMlRxOWVnejFiU0tiakZLbkxYbHl6cDBpZVdHZGFWa3dQWmFFalN0SkozNStHZzlwcDFOa0E1UXU3Qgphb040MmtsMC95Rkc1T2piWUIvdzVOdGo2TUNKdTNqQjEzaHFrRC95NGNXWmFTYXo0U3VJc25aeEFVbWNkblF0CkFMc0V1TGtpRGVNS2orSGRnaFRzZEVlWTBJS2txT21Kc2pmTWxWMENnWUJOV21wN3VncUF6eERCMjFCdlhjYXIKKzMrc05CYlE2eWVtSy9nUmtPVzd3YWI1V3hiSnFwanRDZi9DQVNYUkxWYStzT0UzL1ZkeVdRUUhSOGQ1NEU0egorYzJrNXhhc1VPWUd2ZTluMkROekprM1BhcWpwMm90dGRORjEwZTY1Wmo2bXIyS2luaW9aMzVjYnZvOHRBMXFuCll3RU83UE9DRDNSQmpqQ0t4bVVCYlFLQmdRRE1EWXZsZjhmSEV4TnZmK2ZZbTZLcFFQSjU4OG83L3BoMHRGQmoKaCs2Y0hUL09IQ2J1aUVSeVhCbXZZUTFkTDFNa04yaSsyWVkvcXBKdTlva3lkbHZ2QXdPL09uSGw4OTA3ck5WQgpqZ0RDOHBPSXR0NU4yZGk5WnNTYnhxclN5a2g1elVVejZtVC9KTXJFMlVJTUUrd05RZEorZXVjT1ZmZ3VvTVRECmxsaHpDUUtCZ1FDMnlOUE9UNDMwZ29KY0ErY2ExNTNiU1kvYjNxQnF6bEJNYjhVU3AvVGZqRnVxeTFFWEtYL2QKK04veU1oT1ZGSFJJa3loNm4ySVhrMS9KcktoaUdVMksvVHpjQlQxV01pV29CK3J5eEF3UGUwUVhTNkpkaDdscQpiam41OUZwK2NJZklFMDl0NGdCM1FZeXIyU2YxemxNaUNyOGQ1MlAvRjEvSUJBYWZpSHh2V3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURGekNDQWYrZ0F3SUJBZ0lSQU1yaTZrU3NNbWdCR0xzWWF4RHkxN293RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdIaGNOTWpBeE1URTFNak14TURNNVdoY05NekF4TVRFek1qTXhNRE01V2pBUgpNUTh3RFFZRFZRUURFd1pyZFdKbFpHSXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCCkFRRERUWFRlbVJxNWoyaXk0V0NpRW9KZ1BiZFUxTXdLeXVoZmZEeVdDTlRmOEtETjFoUWxWZjd0ZGduNnAxTDYKWWR2N0ZBUEFjRVUwdyszRlg5V0J5aWtwUWFKYzZEc1Z0MzlwdU90aE4vL1QyMEVhQTFSWmlmeTNvOXc3aFNsOApKV0ZNa0RMZHRTWDZMTWpINXRJNkJ2QWV3TmdYZXFxNHd5SHo0b3JKYnEwTFduaXpCQm43T3FBTHBEWVFEUWFqClRJWEFrOWNNdTRTUnhxc3lhTG9tR0hlZXpPUUlMR0hNT0xQZ2hXbnpCU1JMNThXaHdkNVhzNVdyakQ2TXViTUgKZ0RnNGVpYnVkRkZ6SGZZR29qbkpjMjNCMy9QaXRjQnM2MzUvVlc4azZCNkwzSXVKWTdqbGorTzF1Z2REQ3o3cQpJWUxmcjlZV0RsUFJKajV1Z3ljWGZwazlBZ01CQUFHamJqQnNNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WCkhTVUVGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREF0QmdOVkhSRUUKSmpBa2dnNXJkV0psWkdJdVpHVm1ZWFZzZElJU2EzVmlaV1JpTG1SbFptRjFiSFF1YzNaak1BMEdDU3FHU0liMwpEUUVCQ3dVQUE0SUJBUUE1dWU0MmN6eGpHTWhhUVdxR2lRQUdxSWxkVTNOeHkyRTUvZjZmUEdKSlBJS20yZGVLCk4xckx4NGNKQmkxeEdMRlR1anRpNGhacWVCbm5rblJtdW5JVU9BdDJGUTdmaW0vTkt3eGVneE9kSHpNMVN5ZDIKeUFpeVIxaFVUTEFZelY0cW1Bb3Zla0hZZkZTTUl5aGRjN0RtVHlhTm03eHlueHVERjlKZklTR2cwN3o5d1MzSApNY2RmUDVzQXdIeUhCT0NRajFFOTBsYXVMZm5QamQwQzU3cm5TNVlUYm1nQTcxSEpQcUJDc3hEVzlXTFJZNEE4CjZtQXc3ZmVYcFRUZU02RXVyaHFMemVqcjhnMWtVRVBESXdIWGRtaU04bWR5aC9ScllpR1V1eTFBaStWUk5meSsKenMzUk9PakVZWDg5TkZyYkpqdDBUV3NDN3M5VTRXdlZEWFhUCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBdzAxMDNwa2F1WTlvc3VGZ29oS0NZRDIzVk5UTUNzcm9YM3c4bGdqVTMvQ2d6ZFlVCkpWWCs3WFlKK3FkUyttSGIreFFEd0hCRk5NUHR4Vi9WZ2NvcEtVR2lYT2c3RmJkL2FianJZVGYvMDl0QkdnTlUKV1luOHQ2UGNPNFVwZkNWaFRKQXkzYlVsK2l6SXgrYlNPZ2J3SHNEWUYzcXF1TU1oOCtLS3lXNnRDMXA0c3dRWgorenFnQzZRMkVBMEdvMHlGd0pQWERMdUVrY2FyTW1pNkpoaDNuc3prQ0N4aHpEaXo0SVZwOHdVa1MrZkZvY0hlClY3T1ZxNHcrakxtekI0QTRPSG9tN25SUmN4MzJCcUk1eVhOdHdkL3o0clhBYk90K2YxVnZKT2dlaTl5TGlXTzQKNVkvanRib0hRd3MrNmlHQzM2L1dGZzVUMFNZK2JvTW5GMzZaUFFJREFRQUJBb0lCQVFDOTZXUHIwUldidTBnawpLZVM5dFNIeVZCRWgvSXN0TTRJaTE3eFNhT1FYbnZXL01wMEVjVXNqdmRTV1dIN24ycUQrMWNlUUtad2lZeU9pCitqMnpwOUcrdklRVnMvMUFjTjhFL3p4am5RQzRFa3lMN3hEbXdMZHVHM2pjcC9CZk9Eb1ZLV05ORkFtSjdHS1IKZ0hLTTJwSkVWV0hMOHd4di9jL1dTRVNNKzRKcHRpMFBRZEZ3MDNkUEcrR25SMHpuSFZRWE5ZL3hwa25tYzk2aApyZ2NrWFM5UWZvNUJyazJuaU83SkdCNDBqRFRManpPMFNrZHRtcXZZc0QxNHJHWVpjQ0liSW50L1FiaXRyOHROCk9sNnMzbjh5eWtOZzBwckgxVnlQQk9ubVhMYTBvcy94NzVqZjRrSDJwNXUrV1dJcEsyRTBjcytUZkRmSnpFUGQKNThWWFhDeEJBb0dCQU9TbUlHTHZCSllCZXAyT1NlWWZ2RTczUGhpeDlQdUJQYUMydXJ4emhDR0V1LzRHWmJ5Rwo1QUFpVFN4Y3VUOWZISzZQcUV6QVFZVVQ0bGl3S3hCNUd4U0NaVVlycnVSTW81VTN5Q1FXTmc1SG9BdDV3Sm1rCkc5bDMxU05FNXB0NTJhY0NnS2I3TllWSmhCZFdybnZNWFFaOUJKN0crbzc1bXVKMzlJS1FPUWZmQW9HQkFOcXEKSzZKRzMyNDdNS21udGpENVpqTFkrcE5UcmpHYUZyNHJLS2N0SVllWittaHFqaFovSm5iZVE2YmhRdXc0amltQQp5VThKaGFGU2RRcGxyU3R2UXdkQjIzU1ZCUmJWZGJiaHViVWgvbWFyeENoQXcwc09qQUw2by84V2F6QllhcHgxCkprR2JzOFB3UU9zVU1PMERHcUp2a2xOLzRLQmYrdUh1aW1NNitUSmpBb0dBQW1vT3BYekltNXpnWXBHQ0RqLy8KaVFYclRlOXpHc1MrbGRmWUdPMVBVOXRHOE9PNFowazFWeHNGblpaTkRuSStwMGsxQ2JwdDlxM0RFaFNxSDc1bgpuc3ZScmZBQUpNRDZhVFR4bEEvMytpYWZkZitQSFJBeWl4Vk0xdFovYU56Y2czcnZTTlFXT0pZU0l2enpVck5SCnVDUFJ6S3RsTWVWSTBXTmEzWllRUkJrQ2dZQU5tS1VyNnZJN25XeVNMLzV4SHlET3FwVXlFZkx6M0p2cmFTMlcKNzRSMU5RclA4VWd5ZCtlQlhxS2dQc04xZ3JLOE8rakloRlFOeXQzQ0xyNU14QmRMM1RsekQwMEl0VzhqVnZmQQpIb1ArQ0ZJakdwdktEL1ordk96emtJWkx0RU8weE1nRExsWklLYWt2dE1xeUFnNW02VDhVK0ErVWlVTkZSeHJOCnZyMzk5d0tCZ1FEREdGZXVVODJiZEdhdEFQS0ljbHo5WHV3eWNBZ3cwWk9KZ0xYcDM2b2NCNERHYVBYdUZVTnEKUEwzZVJjc25XSkcrYndqbFRDdmU4YkVVdjBSbHZ0azNMUnZWWG8vdEN6aisvTC9BWE94VFlmNXdrZ204RklhLwo5N3Uzb3Z6VDU0anZBb05ZcXNVbzh2ZE11NDd0S2xvU0JIanQ1ZitwQkhNSm9KaFJQTThNSEE9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
 ---
 # Source: kubedb/templates/cluster-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 rules:
@@ -179,7 +179,7 @@ rules:
   - podsecuritypolicies
   verbs: ["use"]
   resourceNames:
-  - RELEASE-NAME-kubedb
+  - kubedb
   - elasticsearch-db
   - etcd-db
   - memcached-db
@@ -211,11 +211,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: RELEASE-NAME-kubedb-apiserver-auth-delegator
+  name: kubedb-apiserver-auth-delegator
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -224,55 +224,55 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
 ---
 # Source: kubedb/templates/cluster-role-binding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: RELEASE-NAME-kubedb
+  name: kubedb
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
 ---
 # Source: kubedb/templates/license-checker-cluster-role-binding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: RELEASE-NAME-kubedb-license-checker
+  name: kubedb-license-checker
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: appscode:license-checker
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
 ---
 # Source: kubedb/templates/license-reader-cluster-role-binding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: RELEASE-NAME-kubedb-license-reader
+  name: kubedb-license-reader
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: appscode:license-reader
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
 ---
 # Source: kubedb/templates/apiregistration.yaml
@@ -280,12 +280,12 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: RELEASE-NAME-kubedb-apiserver-extension-server-authentication-reader
+  name: kubedb-apiserver-extension-server-authentication-reader
   namespace: kube-system
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -294,19 +294,19 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
 ---
 # Source: kubedb/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -316,18 +316,18 @@ spec:
     targetPort: operator
   selector:
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
 ---
 # Source: kubedb/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: RELEASE-NAME-kubedb
+  name: kubedb
   namespace: default
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -335,16 +335,16 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: kubedb
-      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/instance: kubedb
   template:
     metadata:
       labels:
         app.kubernetes.io/name: kubedb
-        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/instance: kubedb
       annotations:
-        checksum/apiregistration.yaml: f7c8afe242595336f42d3464b3c5d8290041fcb373ca501f05ed78fffe70a4e7
+        checksum/apiregistration.yaml: 17b86c9a8059f7ab6455b984219700c2de62f07d638c637057ff721b2f5f1c86
     spec:
-      serviceAccountName: RELEASE-NAME-kubedb
+      serviceAccountName: kubedb
       containers:
       - name: operator
         securityContext:
@@ -384,7 +384,7 @@ spec:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: RELEASE-NAME-kubedb-apiserver-cert
+          secretName: kubedb-apiserver-cert
       securityContext:
         {}
       nodeSelector:
@@ -399,7 +399,7 @@ metadata:
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -407,8 +407,8 @@ spec:
   version: v1alpha1
   service:
     namespace: default
-    name: RELEASE-NAME-kubedb
-  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lSQU1EeWxKMWkyTFJMaDNoV29CK1N1TVl3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdIaGNOTWpBeE1URTFNak13TnpVNVdoY05NekF4TVRFek1qTXdOelU1V2pBTgpNUXN3Q1FZRFZRUURFd0pqWVRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTEpXCmlzSk1Yc0VWTjhUbHJnd1EydzlXR3lGUWZIMUliVGZTSkZBNytWbTFCNUFCYkNyeVNUQnFVOFhoSVBNazRzcjEKbGR6bWROVTcyR1lOM010bU5hOU5wcGErb2VWbjBQQUhXMldrcHBQQUhySGh3SEpxU0pvUFJMRzZRZDJxNkkxegpoRi9PTEhuWWFFZk0yZ3p4azRLU1V6LzlRUTRycjlWWXZJbkVLeEpzWWlZUWQ2eXJqU3kxaFVZV2RqcVQvRXYrCkhNSEFsbGhLbytFeUhQM1RTWnZRRnV3R2VEMy94M3NtZWZYNlNuNWpwbFJPeXhWdzNnQ0phQ0tXUzJOeGhDL2sKcWdzYXdJdk0zWXFJNjNRRXpHakhkM1ZZTEljaXVmR0dKc3BsNHVlZ0lyamcvZ1VzMVMxbVJQa1lDaU1ad1NZLwoxSGVkYTQreXhZNDJTcVg1cFg4Q0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUIwR0ExVWRKUVFXCk1CUUdDQ3NHQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFCd0xrWUxXNjN2VHBMRjhPeWZ4NG5qNCttTTFrK0ttVDBER2Z3ckgrQ3FrL0dSTnBhWgp4SDJOdnlvRkJ0UmtOakpTQkFXNDdrSStGUUgrRkpJNmZ1TWN3WXI1VVlLZUFpQlUvcWYwaTJxdjRrU2NJUUV4CkNmMm9xczFIWldJSFpmK1B2WmdYS1Y5S1NacFBBbi9xeXJIZGwxMW1zV0M5MnA5amJCRmhaYk5obFF5ZDJBUTQKZDcybjcyNEordmo1c1puNkpoaTRLMkx6d2pvZjF3YndCN1QySEhGdXFRQ0xsczl3ZGg0RFpJYUQ4SHVqQVBaSApaaTRxeldoRnJ6NVViNGx2U0hYQVpLK1g4cUt6WmtqZEppM2NoUjBXTVZqWFZNOXlUOHlqYm15MEhYbnlDUnVJCnhWL1U5ZU5PWThDdUVUNTFtQmhSVit5elludG5vOEh4Vk9SZQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    name: kubedb
+  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1akNDQWM2Z0F3SUJBZ0lRS0tTbGZWaTJxZVdUWTk4d3FMUGpmakFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TURFeE1UVXlNekV3TXpsYUZ3MHpNREV4TVRNeU16RXdNemxhTUEweApDekFKQmdOVkJBTVRBbU5oTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEzRG1xCnJkU2FMVnZDaVI2U0dic2VDV2psL1YvRUpibTF3YzVrUHVlanZVVTFlUG1scGExNjRmajhoQ0QzU0tnd1J3djgKZVluV2U0ZUgzKzBSNGVmaldEcUpQdE9qTlNFMzdqd0gxUmZMNTBERTVDYlJ6OVRNL3JLY0lUWnRReENuaFVlcgpRRnAyM1ptZXN4emUwd3RFaUhTY3ZDN2xuRjdsVmlFbTNDR21JSWdTOXlqMGVOZitCMEFtTTAvNmMyckdkL3VCCmFhZUFmSEt5dlptcGp5RHVYLy9tekZwdWlPYlF0TDF5L1l4NGJTMHN0a3d2TzVydExoR0xHOW1jdzVxVGlpK2kKUUk1R0FtemRrNkRpQy9kZGxHN3YwNFRLMEJLK25KbWZuV0lKazVKcU1kOEdsdXM1NlZNT3IwemNoVXp5bGtxMgp4dTJGMTdaL3pLSGlBQ0tpM3dJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3CkZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y04KQVFFTEJRQURnZ0VCQURuTXJvL3hsNVdiblpPamptNk9PcUF5NVd1R2grMkFlMmwrM2d6Mkt6L2hoN2VVblBrTQpTcmNZWkZ6TDIzc2oxVHhpMDFPSW5yS1A1Y1hBNUdkMHV3MW53eEpmaG13VGNQTlJIbnZtMEFYSm1iY1RiTjVKCjFQNm5jbHVJWmlhbHROZFdOam4vSzdlWmNUeUIvc3VJendxNFZZZks5ZGtsT3ZuZ3hFWDJuSFlIR1lMRG9LMWwKb055REtmUDNEU0N6b0ZndzRkNmozeW1QMkQ0MHI1Vk42YVZsM3haRDI2VnUwZTBhdTE0SDNTNXJmaXVIQkNqMwpKRmJIMVRkSElLRW1JYnUvUi81R2MvZ0xJM3g3dG4rbGVvZVYxeUNNRFJ5ZHRsdm9lNDJXTGZrTGZ0TThDVlUyCmVmYVpOQmVFdEZkdUpMU3AyTS9KMmhoVjJiclpVTTNjZUp3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
   groupPriorityMinimum: 10000
   versionPriority: 15
 ---
@@ -420,7 +420,7 @@ metadata:
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -428,8 +428,8 @@ spec:
   version: v1alpha1
   service:
     namespace: default
-    name: RELEASE-NAME-kubedb
-  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lSQU1EeWxKMWkyTFJMaDNoV29CK1N1TVl3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdIaGNOTWpBeE1URTFNak13TnpVNVdoY05NekF4TVRFek1qTXdOelU1V2pBTgpNUXN3Q1FZRFZRUURFd0pqWVRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTEpXCmlzSk1Yc0VWTjhUbHJnd1EydzlXR3lGUWZIMUliVGZTSkZBNytWbTFCNUFCYkNyeVNUQnFVOFhoSVBNazRzcjEKbGR6bWROVTcyR1lOM010bU5hOU5wcGErb2VWbjBQQUhXMldrcHBQQUhySGh3SEpxU0pvUFJMRzZRZDJxNkkxegpoRi9PTEhuWWFFZk0yZ3p4azRLU1V6LzlRUTRycjlWWXZJbkVLeEpzWWlZUWQ2eXJqU3kxaFVZV2RqcVQvRXYrCkhNSEFsbGhLbytFeUhQM1RTWnZRRnV3R2VEMy94M3NtZWZYNlNuNWpwbFJPeXhWdzNnQ0phQ0tXUzJOeGhDL2sKcWdzYXdJdk0zWXFJNjNRRXpHakhkM1ZZTEljaXVmR0dKc3BsNHVlZ0lyamcvZ1VzMVMxbVJQa1lDaU1ad1NZLwoxSGVkYTQreXhZNDJTcVg1cFg4Q0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUIwR0ExVWRKUVFXCk1CUUdDQ3NHQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFCd0xrWUxXNjN2VHBMRjhPeWZ4NG5qNCttTTFrK0ttVDBER2Z3ckgrQ3FrL0dSTnBhWgp4SDJOdnlvRkJ0UmtOakpTQkFXNDdrSStGUUgrRkpJNmZ1TWN3WXI1VVlLZUFpQlUvcWYwaTJxdjRrU2NJUUV4CkNmMm9xczFIWldJSFpmK1B2WmdYS1Y5S1NacFBBbi9xeXJIZGwxMW1zV0M5MnA5amJCRmhaYk5obFF5ZDJBUTQKZDcybjcyNEordmo1c1puNkpoaTRLMkx6d2pvZjF3YndCN1QySEhGdXFRQ0xsczl3ZGg0RFpJYUQ4SHVqQVBaSApaaTRxeldoRnJ6NVViNGx2U0hYQVpLK1g4cUt6WmtqZEppM2NoUjBXTVZqWFZNOXlUOHlqYm15MEhYbnlDUnVJCnhWL1U5ZU5PWThDdUVUNTFtQmhSVit5elludG5vOEh4Vk9SZQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    name: kubedb
+  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1akNDQWM2Z0F3SUJBZ0lRS0tTbGZWaTJxZVdUWTk4d3FMUGpmakFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TURFeE1UVXlNekV3TXpsYUZ3MHpNREV4TVRNeU16RXdNemxhTUEweApDekFKQmdOVkJBTVRBbU5oTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEzRG1xCnJkU2FMVnZDaVI2U0dic2VDV2psL1YvRUpibTF3YzVrUHVlanZVVTFlUG1scGExNjRmajhoQ0QzU0tnd1J3djgKZVluV2U0ZUgzKzBSNGVmaldEcUpQdE9qTlNFMzdqd0gxUmZMNTBERTVDYlJ6OVRNL3JLY0lUWnRReENuaFVlcgpRRnAyM1ptZXN4emUwd3RFaUhTY3ZDN2xuRjdsVmlFbTNDR21JSWdTOXlqMGVOZitCMEFtTTAvNmMyckdkL3VCCmFhZUFmSEt5dlptcGp5RHVYLy9tekZwdWlPYlF0TDF5L1l4NGJTMHN0a3d2TzVydExoR0xHOW1jdzVxVGlpK2kKUUk1R0FtemRrNkRpQy9kZGxHN3YwNFRLMEJLK25KbWZuV0lKazVKcU1kOEdsdXM1NlZNT3IwemNoVXp5bGtxMgp4dTJGMTdaL3pLSGlBQ0tpM3dJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3CkZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y04KQVFFTEJRQURnZ0VCQURuTXJvL3hsNVdiblpPamptNk9PcUF5NVd1R2grMkFlMmwrM2d6Mkt6L2hoN2VVblBrTQpTcmNZWkZ6TDIzc2oxVHhpMDFPSW5yS1A1Y1hBNUdkMHV3MW53eEpmaG13VGNQTlJIbnZtMEFYSm1iY1RiTjVKCjFQNm5jbHVJWmlhbHROZFdOam4vSzdlWmNUeUIvc3VJendxNFZZZks5ZGtsT3ZuZ3hFWDJuSFlIR1lMRG9LMWwKb055REtmUDNEU0N6b0ZndzRkNmozeW1QMkQ0MHI1Vk42YVZsM3haRDI2VnUwZTBhdTE0SDNTNXJmaXVIQkNqMwpKRmJIMVRkSElLRW1JYnUvUi81R2MvZ0xJM3g3dG4rbGVvZVYxeUNNRFJ5ZHRsdm9lNDJXTGZrTGZ0TThDVlUyCmVmYVpOQmVFdEZkdUpMU3AyTS9KMmhoVjJiclpVTTNjZUp3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
   groupPriorityMinimum: 10000
   versionPriority: 15
 ---
@@ -618,12 +618,12 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: RELEASE-NAME-cleaner
+  name: kubedb-cleaner
   namespace: default
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
   annotations:
@@ -634,7 +634,7 @@ spec:
   activeDeadlineSeconds: 120
   template:
     spec:
-      serviceAccountName: RELEASE-NAME-kubedb
+      serviceAccountName: kubedb
       containers:
       - name: busybox
         image: appscode/kubectl:v1.16
@@ -658,7 +658,7 @@ metadata:
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
   annotations:
@@ -815,7 +815,7 @@ metadata:
   labels:
     helm.sh/chart: kubedb-v0.15.1
     app.kubernetes.io/name: kubedb
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: kubedb
     app.kubernetes.io/version: "v0.15.1"
     app.kubernetes.io/managed-by: Helm
   annotations:
