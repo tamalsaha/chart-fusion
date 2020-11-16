@@ -221,6 +221,8 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				}
 				if descriptor.Spec.Validation != nil && descriptor.Spec.Validation.OpenAPIV3Schema != nil {
 					chartSchema.Properties[key] = *descriptor.Spec.Validation.OpenAPIV3Schema
+				} else {
+					fmt.Println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> _______", gvr)
 				}
 
 				//err = ioutil.WriteFile(filepath.Join("charts", "templates", flect.Underscore(key)+".yaml"), data, 0644)
@@ -314,7 +316,7 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			filename = filepath.Join("charts", "templates", "values.openapiv3_schema.yaml")
+			filename = filepath.Join("charts", "values.openapiv3_schema.yaml")
 			err = ioutil.WriteFile(filename, data3, 0644)
 			if err != nil {
 				return err

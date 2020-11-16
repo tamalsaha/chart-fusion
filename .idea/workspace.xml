@@ -3,23 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="369a8fae-5e7c-4100-99fb-4a9fda7efe3d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/templates/values.openapiv3_schema.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fuse.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuse.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/values_x.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/values_x.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/crypto/ssh/terminal/terminal.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/crypto/ssh/terminal/terminal.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/hpack/encode.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/hpack/encode.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/http2.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/http2.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/pipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/pipe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/transport.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/writesched_priority.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/http2/writesched_priority.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/idna/tables11.0.0.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/net/idna/tables11.0.0.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/golang.org/x/time/rate/rate.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/golang.org/x/time/rate/rate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/google.golang.org/appengine/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/google.golang.org/appengine/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/google.golang.org/appengine/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/google.golang.org/appengine/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/google.golang.org/appengine/internal/net.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/google.golang.org/appengine/internal/net.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +155,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>309</line>
+          <line>311</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -192,7 +177,7 @@
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <condition expression="f2 == &quot;&quot;" language="go" />
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>256</line>
+          <line>258</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
