@@ -25,7 +25,9 @@ x:
   kind: {{ $v.kind }}
   metadata:
     name: *fullname
+  {{- if $v.metadata.namespace }}
     namespace: *release_namespace
+  {{- end }}
     labels:
       <<: *labels
   {{- with omit $v "apiVersion" "kind" "metadata" }}

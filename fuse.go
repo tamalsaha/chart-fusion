@@ -109,12 +109,11 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				panic(err)
 			}
 
-			 str, err := yaml.Marshal(data)
+			str, err := yaml.Marshal(data)
 			if err != nil {
 				panic(err)
 			}
 			fmt.Println(string(str))
-
 
 			var tpl *template.Template
 			localTplFile := "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/templates/values.yaml"
