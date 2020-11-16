@@ -50,6 +50,34 @@ x:
         {{- with omit $v.spec.template.spec "serviceAccountName" "serviceAccount" }}
         {{- . | toYaml | nindent 8 }}
         {{- end }}
+{{- else if and (contains "v1" $v.apiVersion) (eq "ReplicationController" $v.kind) }}
+  apiVersion: {{ $v.apiVersion }}
+  kind: {{ $v.kind }}
+  metadata:
+    name: *fullname
+  {{- if $v.metadata.namespace }}
+    namespace: *release_namespace
+  {{- end }}
+    labels:
+      <<: *labels
+  spec:
+    selector:
+      <<: *selectors
+    {{- with omit $v.spec "selector" "template" }}
+    {{- . | toYaml | nindent 4 }}
+    {{- end }}
+    template:
+      metadata:
+        labels:
+          <<: *labels
+        {{- with omit $v.spec.template.metadata "labels" }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+      spec:
+        serviceAccountName: *fullname
+        {{- with omit $v.spec.template.spec "serviceAccountName" "serviceAccount" }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
 {{- else if and (contains "rbac.authorization.k8s.io/" $v.apiVersion) (eq "ClusterRoleBinding" $v.kind) }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
