@@ -10,15 +10,15 @@ x:
   vars:
     name: &name kubedb
     fullname: &fullname kubedb-community
-    chart: &vars_chart kubedb-v0.15.0
-    selector: &selectorLabels
+    chart: &chart kubedb-v0.15.0
+    selector: &selectors
       app.kubernetes.io/instance: *name
       app.kubernetes.io/name: *release_name
     labels: &labels
-      <<: *selectorLabels
+      <<: *selectors
       app.kubernetes.io/managed-by: *release_service
       app.kubernetes.io/version:  "v0.15.0"
-      helm.sh/chart: *vars_chart
+      helm.sh/chart: *chart
 admissionregistrationMutatingWebhookConfiguration:
   apiVersion: admissionregistration.k8s.io/v1beta1
   kind: MutatingWebhookConfiguration
@@ -484,19 +484,18 @@ appsDeployment:
     labels:
       <<: *labels
   spec:
-    replicas: 1
     selector:
       matchLabels:
-        app.kubernetes.io/instance: kubedb
-        app.kubernetes.io/name: kubedb
+        <<: *selectors
+    replicas: 1
     template:
       metadata:
+        labels:
+          <<: *labels
         annotations:
           checksum/apiregistration.yaml: 17b86c9a8059f7ab6455b984219700c2de62f07d638c637057ff721b2f5f1c86
-        labels:
-          app.kubernetes.io/instance: kubedb
-          app.kubernetes.io/name: kubedb
       spec:
+        serviceAccountName: *fullname
         containers:
         - args:
           - run
@@ -534,7 +533,6 @@ appsDeployment:
           beta.kubernetes.io/arch: amd64
           beta.kubernetes.io/os: linux
         securityContext: {}
-        serviceAccountName: kubedb
         volumes:
         - name: serving-cert
           secret:

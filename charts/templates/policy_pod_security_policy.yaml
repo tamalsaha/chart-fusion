@@ -1,8 +1,0 @@
-{{- with .Values.policyPodSecurityPolicy }}
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  {{- .metadata | toYaml | nindent 2 }}
-spec:
-  {{- .spec | toYaml | nindent 2 }}
-{{- end }}

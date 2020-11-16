@@ -1,0 +1,3 @@
+{{- with .Values.appsDeployment }}
+{{- . | toYaml }}
+{{- end }}

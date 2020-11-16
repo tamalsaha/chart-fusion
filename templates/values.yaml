@@ -10,17 +10,64 @@ x:
   vars:
     name: &name {{ .x.chart.name | trunc 63 | trimSuffix "-" }}
     fullname: &fullname {{ if contains .x.chart.name .x.release.name }}{{ .x.release.name | trunc 63 | trimSuffix "-" }}{{ else }}{{ printf "%s-%s" .x.release.name .x.chart.name | trunc 63 | trimSuffix "-" }}{{ end }}
-    chart: &vars_chart {{ printf "%s-%s" .x.chart.name .x.chart.version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-    selector: &selectorLabels
+    chart: &chart {{ printf "%s-%s" .x.chart.name .x.chart.version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    selector: &selectors
       app.kubernetes.io/instance: *name
       app.kubernetes.io/name: *release_name
     labels: &labels
-      <<: *selectorLabels
+      <<: *selectors
       app.kubernetes.io/managed-by: *release_service
       app.kubernetes.io/version:  {{ .x.chart.appVersion | quote }}
-      helm.sh/chart: *vars_chart
+      helm.sh/chart: *chart
 {{- range $k, $v := .objects }}
 {{ $k }}:
+{{- if contains "apps/" $v.apiVersion }}
+  apiVersion: {{ $v.apiVersion }}
+  kind: {{ $v.kind }}
+  metadata:
+    name: *fullname
+  {{- if $v.metadata.namespace }}
+    namespace: *release_namespace
+  {{- end }}
+    labels:
+      <<: *labels
+  spec:
+    selector:
+      matchLabels:
+        <<: *selectors
+    {{- with omit $v.spec "selector" "template" }}
+    {{- . | toYaml | nindent 4 }}
+    {{- end }}
+    template:
+      metadata:
+        labels:
+          <<: *labels
+        {{- with omit $v.spec.template.metadata "labels" }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+      spec:
+        serviceAccountName: *fullname
+        {{- with omit $v.spec.template.spec "serviceAccountName" "serviceAccount" }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+{{- else if and (contains "rbac.authorization.k8s.io/" $v.apiVersion) (eq "ClusterRoleBinding" $v.kind) }}
+  apiVersion: {{ $v.apiVersion }}
+  kind: {{ $v.kind }}
+  metadata:
+    name: *fullname
+  {{- if $v.metadata.namespace }}
+    namespace: *release_namespace
+  {{- end }}
+    labels:
+      <<: *labels
+  {{- with omit $v "apiVersion" "kind" "metadata" "subjects" }}
+  {{- . | toYaml | nindent 2 }}
+  {{- end }}
+  subjects:
+  - kind: ServiceAccount
+    name: *fullname
+    namespace: *release_namespace
+{{- else }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
@@ -33,4 +80,5 @@ x:
   {{- with omit $v "apiVersion" "kind" "metadata" }}
   {{- . | toYaml | nindent 2 }}
   {{- end }}
+{{- end }}
 {{- end }}

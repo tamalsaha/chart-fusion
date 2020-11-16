@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Masterminds/sprig"
-	"github.com/gobuffalo/flect"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -47,6 +46,7 @@ func FullName(chartName, releaseName string) string {
 }
 
 var histogramGroupKind = map[schema.GroupKind]int{}
+var histogramFilename = map[string]int{}
 
 func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 	var options resource.FilenameOptions
@@ -119,6 +119,29 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 					histogramGroupKind[gk] = 1
 				}
 
+				accessor, err := meta.Accessor(info.Object)
+				if err != nil {
+					panic(err)
+					return err
+				}
+
+				n1, n2, n3 := NameChoices(ta.GetAPIVersion(), ta.GetKind(), accessor.GetName(), FullName(chartName, releaseName))
+				if v, ok := histogramFilename[n1]; ok {
+					histogramFilename[n1] = v + 1
+				} else {
+					histogramFilename[n1] = 1
+				}
+				if v, ok := histogramFilename[n2]; ok {
+					histogramFilename[n2] = v + 1
+				} else {
+					histogramFilename[n2] = 1
+				}
+				if v, ok := histogramFilename[n3]; ok {
+					histogramFilename[n3] = v + 1
+				} else {
+					histogramFilename[n3] = 1
+				}
+
 				return nil
 			})
 
@@ -186,7 +209,18 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 					panic(err)
 				}
 
-				filename := filepath.Join("charts", "templates", flect.Underscore(key)+".yaml")
+				var f2 string
+				n1, n2, n3 := NameChoices(ta.GetAPIVersion(), ta.GetKind(), accessor.GetName(), FullName(chartName, releaseName))
+				if count, ok := histogramFilename[n1]; ok && count == 1 {
+					f2 = n1
+				} else if count, ok := histogramFilename[n2]; ok && count == 1 {
+					f2 = n2
+				} else if count, ok := histogramFilename[n3]; ok && count == 1 {
+					f2 = n3
+				}
+
+
+				filename := filepath.Join("charts", "templates", f2+".yaml")
 				f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 				if err != nil {
 					return err
