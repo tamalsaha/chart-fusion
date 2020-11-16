@@ -19,13 +19,17 @@ x:
       app.kubernetes.io/managed-by: *release_service
       app.kubernetes.io/version:  {{ .x.chart.appVersion | quote }}
       helm.sh/chart: *chart
+    objects:
+    {{- range $k, $v := .objects }}
+      {{ $k }}: &{{ snakecase $k }} {{ $v.metadata.name | quote }}
+    {{- end }}
 {{- range $k, $v := .objects }}
 {{ $k }}:
-{{- if contains "apps/" $v.apiVersion }}
+{{- if or (contains "apps/" $v.apiVersion) (contains "batch/" $v.apiVersion) }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
-    name: *fullname
+    name: *{{ snakecase $k }}
   {{- if $v.metadata.namespace }}
     namespace: *release_namespace
   {{- end }}
@@ -54,7 +58,7 @@ x:
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
-    name: *fullname
+    name: *{{ snakecase $k }}
   {{- if $v.metadata.namespace }}
     namespace: *release_namespace
   {{- end }}
@@ -78,11 +82,11 @@ x:
         {{- with omit $v.spec.template.spec "serviceAccountName" "serviceAccount" }}
         {{- . | toYaml | nindent 8 }}
         {{- end }}
-{{- else if and (contains "rbac.authorization.k8s.io/" $v.apiVersion) (eq "ClusterRoleBinding" $v.kind) }}
+{{- else if and (contains "rbac.authorization.k8s.io/" $v.apiVersion) (or (eq "ClusterRoleBinding" $v.kind) (eq "RoleBinding" $v.kind)) }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
-    name: *fullname
+    name: *{{ snakecase $k }}
   {{- if $v.metadata.namespace }}
     namespace: *release_namespace
   {{- end }}
@@ -95,11 +99,25 @@ x:
   - kind: ServiceAccount
     name: *fullname
     namespace: *release_namespace
+{{- else if and (contains "apiregistration.k8s.io/" $v.apiVersion) (eq "APIService" $v.kind) }}
+  apiVersion: {{ $v.apiVersion }}
+  kind: {{ $v.kind }}
+  metadata:
+    name: *{{ snakecase $k }}
+    labels:
+      <<: *labels
+  spec:
+    service:
+      name: *fullname
+      namespace: *release_namespace
+    {{- with omit $v.spec "service" }}
+    {{- . | toYaml | nindent 4 }}
+    {{- end }}
 {{- else }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
-    name: *fullname
+    name: *{{ snakecase $k }}
   {{- if $v.metadata.namespace }}
     namespace: *release_namespace
   {{- end }}

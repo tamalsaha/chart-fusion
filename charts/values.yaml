@@ -19,11 +19,37 @@ x:
       app.kubernetes.io/managed-by: *release_service
       app.kubernetes.io/version:  "v0.15.0"
       helm.sh/chart: *chart
+    objects:
+      admissionregistrationMutatingWebhookConfiguration: &admissionregistration_mutating_webhook_configuration "mutators.kubedb.com"
+      admissionregistrationValidatingWebhookConfiguration: &admissionregistration_validating_webhook_configuration "validators.kubedb.com"
+      apiregistrationAPIServiceV1alpha1MutatorsKubedbCom: &apiregistration_api_service_v_1alpha1_mutators_kubedb_com "v1alpha1.mutators.kubedb.com"
+      apiregistrationAPIServiceV1alpha1ValidatorsKubedbCom: &apiregistration_api_service_v_1alpha1_validators_kubedb_com "v1alpha1.validators.kubedb.com"
+      appsDeployment: &apps_deployment "kubedb"
+      batchJob: &batch_job "kubedb-cleaner"
+      policyPodSecurityPolicy: &policy_pod_security_policy "kubedb"
+      rbacAuthorizationClusterRoleAppscodeAppcatalogAdmin: &rbac_authorization_cluster_role_appscode_appcatalog_admin "appscode:appcatalog:admin"
+      rbacAuthorizationClusterRoleAppscodeAppcatalogView: &rbac_authorization_cluster_role_appscode_appcatalog_view "appscode:appcatalog:view"
+      rbacAuthorizationClusterRoleAppscodeLicenseChecker: &rbac_authorization_cluster_role_appscode_license_checker "appscode:license-checker"
+      rbacAuthorizationClusterRoleAppscodeLicenseReader: &rbac_authorization_cluster_role_appscode_license_reader "appscode:license-reader"
+      rbacAuthorizationClusterRoleBindingKubedb: &rbac_authorization_cluster_role_binding_kubedb "kubedb"
+      rbacAuthorizationClusterRoleBindingKubedbApiserverAuthDelegator: &rbac_authorization_cluster_role_binding_kubedb_apiserver_auth_delegator "kubedb-apiserver-auth-delegator"
+      rbacAuthorizationClusterRoleBindingKubedbGarbageCollectorPsp: &rbac_authorization_cluster_role_binding_kubedb_garbage_collector_psp "kubedb:garbage-collector:psp"
+      rbacAuthorizationClusterRoleBindingKubedbLicenseChecker: &rbac_authorization_cluster_role_binding_kubedb_license_checker "kubedb-license-checker"
+      rbacAuthorizationClusterRoleBindingKubedbLicenseReader: &rbac_authorization_cluster_role_binding_kubedb_license_reader "kubedb-license-reader"
+      rbacAuthorizationClusterRoleKubedb: &rbac_authorization_cluster_role_kubedb "kubedb"
+      rbacAuthorizationClusterRoleKubedbCoreAdmin: &rbac_authorization_cluster_role_kubedb_core_admin "kubedb:core:admin"
+      rbacAuthorizationClusterRoleKubedbCoreEdit: &rbac_authorization_cluster_role_kubedb_core_edit "kubedb:core:edit"
+      rbacAuthorizationClusterRoleKubedbCoreView: &rbac_authorization_cluster_role_kubedb_core_view "kubedb:core:view"
+      rbacAuthorizationClusterRoleKubedbGarbageCollectorPsp: &rbac_authorization_cluster_role_kubedb_garbage_collector_psp "kubedb:garbage-collector:psp"
+      rbacAuthorizationRoleBinding: &rbac_authorization_role_binding "kubedb-apiserver-extension-server-authentication-reader"
+      secret: &secret "kubedb-apiserver-cert"
+      service: &service "kubedb"
+      serviceAccount: &service_account "kubedb"
 admissionregistrationMutatingWebhookConfiguration:
   apiVersion: admissionregistration.k8s.io/v1beta1
   kind: MutatingWebhookConfiguration
   metadata:
-    name: *fullname
+    name: *admissionregistration_mutating_webhook_configuration
     labels:
       <<: *labels
   webhooks:
@@ -221,7 +247,7 @@ admissionregistrationValidatingWebhookConfiguration:
   apiVersion: admissionregistration.k8s.io/v1beta1
   kind: ValidatingWebhookConfiguration
   metadata:
-    name: *fullname
+    name: *admissionregistration_validating_webhook_configuration
     labels:
       <<: *labels
   webhooks:
@@ -447,39 +473,39 @@ apiregistrationAPIServiceV1alpha1MutatorsKubedbCom:
   apiVersion: apiregistration.k8s.io/v1beta1
   kind: APIService
   metadata:
-    name: *fullname
+    name: *apiregistration_api_service_v_1alpha1_mutators_kubedb_com
     labels:
       <<: *labels
   spec:
+    service:
+      name: *fullname
+      namespace: *release_namespace
     caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1akNDQWM2Z0F3SUJBZ0lRS0tTbGZWaTJxZVdUWTk4d3FMUGpmakFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TURFeE1UVXlNekV3TXpsYUZ3MHpNREV4TVRNeU16RXdNemxhTUEweApDekFKQmdOVkJBTVRBbU5oTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEzRG1xCnJkU2FMVnZDaVI2U0dic2VDV2psL1YvRUpibTF3YzVrUHVlanZVVTFlUG1scGExNjRmajhoQ0QzU0tnd1J3djgKZVluV2U0ZUgzKzBSNGVmaldEcUpQdE9qTlNFMzdqd0gxUmZMNTBERTVDYlJ6OVRNL3JLY0lUWnRReENuaFVlcgpRRnAyM1ptZXN4emUwd3RFaUhTY3ZDN2xuRjdsVmlFbTNDR21JSWdTOXlqMGVOZitCMEFtTTAvNmMyckdkL3VCCmFhZUFmSEt5dlptcGp5RHVYLy9tekZwdWlPYlF0TDF5L1l4NGJTMHN0a3d2TzVydExoR0xHOW1jdzVxVGlpK2kKUUk1R0FtemRrNkRpQy9kZGxHN3YwNFRLMEJLK25KbWZuV0lKazVKcU1kOEdsdXM1NlZNT3IwemNoVXp5bGtxMgp4dTJGMTdaL3pLSGlBQ0tpM3dJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3CkZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y04KQVFFTEJRQURnZ0VCQURuTXJvL3hsNVdiblpPamptNk9PcUF5NVd1R2grMkFlMmwrM2d6Mkt6L2hoN2VVblBrTQpTcmNZWkZ6TDIzc2oxVHhpMDFPSW5yS1A1Y1hBNUdkMHV3MW53eEpmaG13VGNQTlJIbnZtMEFYSm1iY1RiTjVKCjFQNm5jbHVJWmlhbHROZFdOam4vSzdlWmNUeUIvc3VJendxNFZZZks5ZGtsT3ZuZ3hFWDJuSFlIR1lMRG9LMWwKb055REtmUDNEU0N6b0ZndzRkNmozeW1QMkQ0MHI1Vk42YVZsM3haRDI2VnUwZTBhdTE0SDNTNXJmaXVIQkNqMwpKRmJIMVRkSElLRW1JYnUvUi81R2MvZ0xJM3g3dG4rbGVvZVYxeUNNRFJ5ZHRsdm9lNDJXTGZrTGZ0TThDVlUyCmVmYVpOQmVFdEZkdUpMU3AyTS9KMmhoVjJiclpVTTNjZUp3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
     group: mutators.kubedb.com
     groupPriorityMinimum: 10000
-    service:
-      name: kubedb
-      namespace: default
     version: v1alpha1
     versionPriority: 15
 apiregistrationAPIServiceV1alpha1ValidatorsKubedbCom:
   apiVersion: apiregistration.k8s.io/v1beta1
   kind: APIService
   metadata:
-    name: *fullname
+    name: *apiregistration_api_service_v_1alpha1_validators_kubedb_com
     labels:
       <<: *labels
   spec:
+    service:
+      name: *fullname
+      namespace: *release_namespace
     caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1akNDQWM2Z0F3SUJBZ0lRS0tTbGZWaTJxZVdUWTk4d3FMUGpmakFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TURFeE1UVXlNekV3TXpsYUZ3MHpNREV4TVRNeU16RXdNemxhTUEweApDekFKQmdOVkJBTVRBbU5oTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEzRG1xCnJkU2FMVnZDaVI2U0dic2VDV2psL1YvRUpibTF3YzVrUHVlanZVVTFlUG1scGExNjRmajhoQ0QzU0tnd1J3djgKZVluV2U0ZUgzKzBSNGVmaldEcUpQdE9qTlNFMzdqd0gxUmZMNTBERTVDYlJ6OVRNL3JLY0lUWnRReENuaFVlcgpRRnAyM1ptZXN4emUwd3RFaUhTY3ZDN2xuRjdsVmlFbTNDR21JSWdTOXlqMGVOZitCMEFtTTAvNmMyckdkL3VCCmFhZUFmSEt5dlptcGp5RHVYLy9tekZwdWlPYlF0TDF5L1l4NGJTMHN0a3d2TzVydExoR0xHOW1jdzVxVGlpK2kKUUk1R0FtemRrNkRpQy9kZGxHN3YwNFRLMEJLK25KbWZuV0lKazVKcU1kOEdsdXM1NlZNT3IwemNoVXp5bGtxMgp4dTJGMTdaL3pLSGlBQ0tpM3dJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3CkZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y04KQVFFTEJRQURnZ0VCQURuTXJvL3hsNVdiblpPamptNk9PcUF5NVd1R2grMkFlMmwrM2d6Mkt6L2hoN2VVblBrTQpTcmNZWkZ6TDIzc2oxVHhpMDFPSW5yS1A1Y1hBNUdkMHV3MW53eEpmaG13VGNQTlJIbnZtMEFYSm1iY1RiTjVKCjFQNm5jbHVJWmlhbHROZFdOam4vSzdlWmNUeUIvc3VJendxNFZZZks5ZGtsT3ZuZ3hFWDJuSFlIR1lMRG9LMWwKb055REtmUDNEU0N6b0ZndzRkNmozeW1QMkQ0MHI1Vk42YVZsM3haRDI2VnUwZTBhdTE0SDNTNXJmaXVIQkNqMwpKRmJIMVRkSElLRW1JYnUvUi81R2MvZ0xJM3g3dG4rbGVvZVYxeUNNRFJ5ZHRsdm9lNDJXTGZrTGZ0TThDVlUyCmVmYVpOQmVFdEZkdUpMU3AyTS9KMmhoVjJiclpVTTNjZUp3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
     group: validators.kubedb.com
     groupPriorityMinimum: 10000
-    service:
-      name: kubedb
-      namespace: default
     version: v1alpha1
     versionPriority: 15
 appsDeployment:
   apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: *fullname
+    name: *apps_deployment
     namespace: *release_namespace
     labels:
       <<: *labels
@@ -542,33 +568,39 @@ batchJob:
   apiVersion: batch/v1
   kind: Job
   metadata:
-    name: *fullname
+    name: *batch_job
     namespace: *release_namespace
     labels:
       <<: *labels
   spec:
+    selector:
+      matchLabels:
+        <<: *selectors
     activeDeadlineSeconds: 120
     backoffLimit: 3
     template:
+      metadata:
+        labels:
+          <<: *labels
       spec:
+        serviceAccountName: *fullname
         containers:
         - command:
           - sh
           - -c
           - sleep 2; kubectl delete validatingwebhookconfigurations validators.kubedb.com
-            || true; kubectl delete mutatingwebhookconfiguration mutators.kubedb.com
-            || true; kubectl delete apiservice v1alpha1.mutators.kubedb.com || true;
-            kubectl delete apiservice v1alpha1.validators.kubedb.com || true;
+            || true; kubectl delete mutatingwebhookconfiguration mutators.kubedb.com || true;
+            kubectl delete apiservice v1alpha1.mutators.kubedb.com || true; kubectl delete
+            apiservice v1alpha1.validators.kubedb.com || true;
           image: appscode/kubectl:v1.16
           imagePullPolicy: IfNotPresent
           name: busybox
         restartPolicy: Never
-        serviceAccountName: kubedb
 policyPodSecurityPolicy:
   apiVersion: policy/v1beta1
   kind: PodSecurityPolicy
   metadata:
-    name: *fullname
+    name: *policy_pod_security_policy
     labels:
       <<: *labels
   spec:
@@ -594,7 +626,7 @@ rbacAuthorizationClusterRoleAppscodeAppcatalogAdmin:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_appscode_appcatalog_admin
     labels:
       <<: *labels
   rules:
@@ -608,7 +640,7 @@ rbacAuthorizationClusterRoleAppscodeAppcatalogView:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_appscode_appcatalog_view
     labels:
       <<: *labels
   rules:
@@ -624,7 +656,7 @@ rbacAuthorizationClusterRoleAppscodeLicenseChecker:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_appscode_license_checker
     labels:
       <<: *labels
   rules:
@@ -660,7 +692,7 @@ rbacAuthorizationClusterRoleAppscodeLicenseReader:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_appscode_license_reader
     labels:
       <<: *labels
   rules:
@@ -678,7 +710,7 @@ rbacAuthorizationClusterRoleBindingKubedb:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_binding_kubedb
     labels:
       <<: *labels
   roleRef:
@@ -693,7 +725,7 @@ rbacAuthorizationClusterRoleBindingKubedbApiserverAuthDelegator:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_binding_kubedb_apiserver_auth_delegator
     labels:
       <<: *labels
   roleRef:
@@ -708,7 +740,7 @@ rbacAuthorizationClusterRoleBindingKubedbGarbageCollectorPsp:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_binding_kubedb_garbage_collector_psp
     labels:
       <<: *labels
   roleRef:
@@ -723,7 +755,7 @@ rbacAuthorizationClusterRoleBindingKubedbLicenseChecker:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_binding_kubedb_license_checker
     labels:
       <<: *labels
   roleRef:
@@ -738,7 +770,7 @@ rbacAuthorizationClusterRoleBindingKubedbLicenseReader:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_binding_kubedb_license_reader
     labels:
       <<: *labels
   roleRef:
@@ -753,7 +785,7 @@ rbacAuthorizationClusterRoleKubedb:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_kubedb
     labels:
       <<: *labels
   rules:
@@ -969,7 +1001,7 @@ rbacAuthorizationClusterRoleKubedbCoreAdmin:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_kubedb_core_admin
     labels:
       <<: *labels
   rules:
@@ -984,7 +1016,7 @@ rbacAuthorizationClusterRoleKubedbCoreEdit:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_kubedb_core_edit
     labels:
       <<: *labels
   rules:
@@ -1011,7 +1043,7 @@ rbacAuthorizationClusterRoleKubedbCoreView:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_kubedb_core_view
     labels:
       <<: *labels
   rules:
@@ -1028,7 +1060,7 @@ rbacAuthorizationClusterRoleKubedbGarbageCollectorPsp:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
-    name: *fullname
+    name: *rbac_authorization_cluster_role_kubedb_garbage_collector_psp
     labels:
       <<: *labels
   rules:
@@ -1042,7 +1074,7 @@ rbacAuthorizationRoleBinding:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding
   metadata:
-    name: *fullname
+    name: *rbac_authorization_role_binding
     namespace: *release_namespace
     labels:
       <<: *labels
@@ -1052,13 +1084,13 @@ rbacAuthorizationRoleBinding:
     name: extension-apiserver-authentication-reader
   subjects:
   - kind: ServiceAccount
-    name: kubedb
-    namespace: default
+    name: *fullname
+    namespace: *release_namespace
 secret:
   apiVersion: v1
   kind: Secret
   metadata:
-    name: *fullname
+    name: *secret
     namespace: *release_namespace
     labels:
       <<: *labels
@@ -1070,7 +1102,7 @@ service:
   apiVersion: v1
   kind: Service
   metadata:
-    name: *fullname
+    name: *service
     namespace: *release_namespace
     labels:
       <<: *labels
@@ -1086,7 +1118,7 @@ serviceAccount:
   apiVersion: v1
   kind: ServiceAccount
   metadata:
-    name: *fullname
+    name: *service_account
     namespace: *release_namespace
     labels:
       <<: *labels

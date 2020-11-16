@@ -3,35 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="369a8fae-5e7c-4100-99fb-4a9fda7efe3d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/admissionregistration_mutating_webhook_configuration.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/admissionregistration_validating_webhook_configuration.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/apiregistration_api_service_v1alpha1_mutators_kubedb_com.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/apiregistration_api_service_v1alpha1_validators_kubedb_com.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/apps_deployment.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/batch_job.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/policy_pod_security_policy.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_appscode_appcatalog_admin.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_appscode_appcatalog_view.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_appscode_license_checker.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_appscode_license_reader.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_binding_kubedb.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_binding_kubedb_apiserver_auth_delegator.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_binding_kubedb_garbage_collector_psp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_binding_kubedb_license_checker.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_binding_kubedb_license_reader.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_kubedb.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_kubedb_core_admin.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_kubedb_core_edit.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_kubedb_core_view.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_cluster_role_kubedb_garbage_collector_psp.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/rbac_authorization_role_binding.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/secret.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/secret.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/templates/service_account.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/service_account.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fuse.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuse.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/object.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/object.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/values.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
