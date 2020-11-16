@@ -6,11 +6,14 @@ import (
 	"github.com/Masterminds/sprig"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"io/ioutil"
+	api "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/cli-runtime/pkg/resource"
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"kmodules.xyz/resource-metadata/hub"
 	"os"
 	"path/filepath"
 	"sigs.k8s.io/yaml"
@@ -21,6 +24,11 @@ import (
 var (
 	chartName   = "kubedb"
 	releaseName = "kubedb-community"
+	chartSchema = api.JSONSchemaProps{
+		Type: "object",
+		Properties: map[string]api.JSONSchemaProps{},
+	}
+	registry    = hub.NewRegistryOfKnownResources()
 )
 
 func min(x, y int) int {
@@ -145,6 +153,19 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				return nil
 			})
 
+			data2, err := ioutil.ReadFile("values_x.yaml")
+			if err != nil {
+				return err
+			}
+
+			var prop api.JSONSchemaProps
+			err = yaml.Unmarshal(data2, &prop)
+			if err != nil {
+				return err
+			}
+			chartSchema.Required = append(chartSchema.Required, "x")
+			chartSchema.Properties["x"] = prop
+
 			err = r.Visit(func(info *resource.Info, err error) error {
 				if err != nil {
 					return err
@@ -188,6 +209,20 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 
 				model.Objects[key] = info.Object
 
+				gvr, err := registry.GVR(info.Object.GetObjectKind().GroupVersionKind())
+				if err != nil {
+					panic(err)
+					return err
+				}
+				descriptor, err := registry.LoadByGVR(gvr)
+				if err != nil {
+					panic(err)
+					return err
+				}
+				if descriptor.Spec.Validation != nil && descriptor.Spec.Validation.OpenAPIV3Schema != nil {
+					chartSchema.Properties[key] = *descriptor.Spec.Validation.OpenAPIV3Schema
+				}
+
 				//err = ioutil.WriteFile(filepath.Join("charts", "templates", flect.Underscore(key)+".yaml"), data, 0644)
 				//if err != nil {
 				//	panic(err)
@@ -218,7 +253,6 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				} else if count, ok := histogramFilename[n3]; ok && count == 1 {
 					f2 = n3
 				}
-
 
 				filename := filepath.Join("charts", "templates", f2+".yaml")
 				f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
@@ -270,6 +304,18 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 			funcMap["toJson"] = toJSON
 			tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
 			err = tpl.Execute(f, &data)
+			if err != nil {
+				return err
+			}
+
+			// /home/tamal/go/src/kubedb.dev/profile-charts/charts/mongodb/values.openapiv3_schema.yaml
+
+			data3, err := yaml.Marshal(chartSchema)
+			if err != nil {
+				return err
+			}
+			filename = filepath.Join("charts", "templates", "values.openapiv3_schema.yaml")
+			err = ioutil.WriteFile(filename, data3, 0644)
 			if err != nil {
 				return err
 			}

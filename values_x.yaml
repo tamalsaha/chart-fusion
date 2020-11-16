@@ -1,47 +1,58 @@
 properties:
-  chart:
-    properties:
-      appVersion:
-        type: string
-      name:
-        type: string
-      version:
-        type: string
-    required:
-    - appVersion
-    - name
-    - version
-    type: object
-  release:
-    properties:
-      name:
-        type: string
-      namespace:
-        type: string
-      service:
-        type: string
-    required:
-    - name
-    - namespace
-    - service
-    type: object
-  vars:
-    properties:
-      fullname:
-        type: string
-      labels:
-        additionalProperties:
-          type: string
-        type: object
-      selector:
-        additionalProperties:
-          type: string
-        type: object
-    required:
-    - fullname
-    - labels
-    - selector
-    type: object
+                  chart:
+                    properties:
+                      appVersion:
+                        type: string
+                      name:
+                        type: string
+                      version:
+                        type: string
+                    required:
+                    - appVersion
+                    - name
+                    - version
+                    type: object
+                  release:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      service:
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    - service
+                    type: object
+                  vars:
+                    properties:
+                      chart:
+                        type: string
+                      fullname:
+                        type: string
+                      labels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      name:
+                        type: string
+                      objects:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      selector:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    required:
+                    - chart
+                    - fullname
+                    - labels
+                    - name
+                    - objects
+                    - selector
+                    type: object
 required:
 - chart
 - release
