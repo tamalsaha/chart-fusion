@@ -30,3 +30,8 @@ type ValuesModel struct {
 	X       X                         `json:"x"`
 	Objects map[string]runtime.Object `json:"objects"`
 }
+
+type ObjectModel struct {
+	Key    string         `json:"key"`
+	Object runtime.Object `json:"object"`
+}

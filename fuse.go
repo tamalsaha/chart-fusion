@@ -7,9 +7,9 @@ import (
 	"github.com/gobuffalo/flect"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"io/ioutil"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/cli-runtime/pkg/resource"
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"os"
@@ -18,6 +18,35 @@ import (
 	"strings"
 	"text/template"
 )
+
+var (
+	chartName   = "kubedb"
+	releaseName = "kubedb-community"
+)
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+/*
+{{- if contains .Chart.Name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+*/
+func FullName(chartName, releaseName string) string {
+	s := fmt.Sprintf("%s-%s", releaseName, chartName)
+	if strings.Contains(releaseName, chartName) {
+		s = releaseName
+	}
+	return strings.TrimSuffix(s[:min(len(s), 63)], "-")
+}
+
+var histogramGroupKind = map[schema.GroupKind]int{}
 
 func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 	var options resource.FilenameOptions
@@ -70,14 +99,57 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 					return err
 				}
 
-				data, err := yaml.Marshal(info.Object)
+				ta, err := meta.TypeAccessor(info.Object)
+				if err != nil {
+					panic(err)
+					return err
+				}
+				gv, err := schema.ParseGroupVersion(ta.GetAPIVersion())
+				if err != nil {
+					panic(err)
+					return err
+				}
+				gk := schema.GroupKind{
+					Group: gv.Group,
+					Kind:  ta.GetKind(),
+				}
+				if v, ok := histogramGroupKind[gk]; ok {
+					histogramGroupKind[gk] = v + 1
+				} else {
+					histogramGroupKind[gk] = 1
+				}
+
+				return nil
+			})
+
+			err = r.Visit(func(info *resource.Info, err error) error {
 				if err != nil {
 					return err
 				}
 
+				//data, err := yaml.Marshal(info.Object)
+				//if err != nil {
+				//	return err
+				//}
+
 				//fmt.Println(string(data))
 				//fmt.Println("-------------------------------------|" +
 				//	info.Name + "|" + info.Namespace + "|" + info.Source)
+
+				ta, err := meta.TypeAccessor(info.Object)
+				if err != nil {
+					panic(err)
+					return err
+				}
+				//gv, err := schema.ParseGroupVersion(ta.GetAPIVersion())
+				//if err != nil {
+				//	panic(err)
+				//	return err
+				//}
+				//gk := schema.GroupKind{
+				//	Group: gv.Group,
+				//	Kind:  ta.GetKind(),
+				//}
 
 				accessor, err := meta.Accessor(info.Object)
 				if err != nil {
@@ -85,11 +157,49 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 					return err
 				}
 
-				model.Objects[flect.Camelize(accessor.GetName())] = info.Object
-
-				err = ioutil.WriteFile(filepath.Join("charts", "templates", flect.Underscore(accessor.GetName())+".yaml"), data, 0644)
+				key, err := NG(ta.GetAPIVersion(), ta.GetKind(), accessor.GetName(), FullName(chartName, releaseName), histogramGroupKind)
 				if err != nil {
 					panic(err)
+					return err
+				}
+
+				model.Objects[key] = info.Object
+
+				//err = ioutil.WriteFile(filepath.Join("charts", "templates", flect.Underscore(key)+".yaml"), data, 0644)
+				//if err != nil {
+				//	panic(err)
+				//	return err
+				//}
+
+				objModel := ObjectModel{
+					Key:    key,
+					Object: info.Object,
+				}
+				modelJSON, err := json.Marshal(objModel)
+				if err != nil {
+					return err
+				}
+
+				var data map[string]interface{}
+				err = json.Unmarshal(modelJSON, &data)
+				if err != nil {
+					panic(err)
+				}
+
+				filename := filepath.Join("charts", "templates", flect.Underscore(key)+".yaml")
+				f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+				if err != nil {
+					return err
+				}
+				defer f.Close()
+
+				localTplFile := "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/templates/object.yaml"
+				funcMap := sprig.TxtFuncMap()
+				funcMap["toYaml"] = toYAML
+				funcMap["toJson"] = toJSON
+				tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+				err = tpl.Execute(f, &data)
+				if err != nil {
 					return err
 				}
 
@@ -101,27 +211,31 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				return err
 			}
 
-			// fmt.Println(string(modelJSON))
-
 			var data map[string]interface{}
 			err = json.Unmarshal(modelJSON, &data)
 			if err != nil {
 				panic(err)
 			}
 
-			str, err := yaml.Marshal(data)
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println(string(str))
+			//str, err := yaml.Marshal(data)
+			//if err != nil {
+			//	panic(err)
+			//}
+			//fmt.Println(string(str))
 
-			var tpl *template.Template
+			filename := "charts/values.yaml"
+			f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+
 			localTplFile := "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/templates/values.yaml"
 			funcMap := sprig.TxtFuncMap()
 			funcMap["toYaml"] = toYAML
 			funcMap["toJson"] = toJSON
-			tpl = template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
-			err = tpl.Execute(os.Stdout, &data)
+			tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+			err = tpl.Execute(f, &data)
 			if err != nil {
 				return err
 			}

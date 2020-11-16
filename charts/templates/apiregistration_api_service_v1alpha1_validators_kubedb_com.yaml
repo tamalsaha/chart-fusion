@@ -1,0 +1,8 @@
+{{- with .Values.apiregistrationAPIServiceV1alpha1ValidatorsKubedbCom }}
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  {{- .metadata | toYaml | nindent 2 }}
+spec:
+  {{- .spec | toYaml | nindent 2 }}
+{{- end }}

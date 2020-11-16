@@ -1,0 +1,8 @@
+{{- with .Values.admissionregistrationMutatingWebhookConfiguration }}
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  {{- .metadata | toYaml | nindent 2 }}
+webhooks:
+  {{- .webhooks | toYaml | nindent 2 }}
+{{- end }}

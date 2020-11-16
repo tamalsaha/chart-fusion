@@ -1,0 +1,16 @@
+
+replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
+
+selector" protobuf:"bytes,2,opt,name=selector"`
+
+template" protobuf:"bytes,3,opt,name=template"`
+
+strategy,omitempty" patchStrategy:"retainKeys" protobuf:"bytes,4,opt,name=strategy"`
+
+minReadySeconds,omitempty" protobuf:"varint,5,opt,name=minReadySeconds"`
+
+revisionHistoryLimit,omitempty" protobuf:"varint,6,opt,name=revisionHistoryLimit"`
+
+paused,omitempty" protobuf:"varint,7,opt,name=paused"`
+
+progressDeadlineSeconds,omitempty" protobuf:"varint,9,opt,name=progressDeadlineSeconds"`
