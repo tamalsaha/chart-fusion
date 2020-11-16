@@ -687,8 +687,8 @@ rbacAuthorizationClusterRoleBindingKubedb:
     name: kubedb
   subjects:
   - kind: ServiceAccount
-    name: kubedb
-    namespace: default
+    name: *fullname
+    namespace: *release_namespace
 rbacAuthorizationClusterRoleBindingKubedbApiserverAuthDelegator:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
@@ -702,8 +702,8 @@ rbacAuthorizationClusterRoleBindingKubedbApiserverAuthDelegator:
     name: system:auth-delegator
   subjects:
   - kind: ServiceAccount
-    name: kubedb
-    namespace: default
+    name: *fullname
+    namespace: *release_namespace
 rbacAuthorizationClusterRoleBindingKubedbGarbageCollectorPsp:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
@@ -717,8 +717,8 @@ rbacAuthorizationClusterRoleBindingKubedbGarbageCollectorPsp:
     name: kubedb:garbage-collector:psp
   subjects:
   - kind: ServiceAccount
-    name: generic-garbage-collector
-    namespace: kube-system
+    name: *fullname
+    namespace: *release_namespace
 rbacAuthorizationClusterRoleBindingKubedbLicenseChecker:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
@@ -732,8 +732,8 @@ rbacAuthorizationClusterRoleBindingKubedbLicenseChecker:
     name: appscode:license-checker
   subjects:
   - kind: ServiceAccount
-    name: kubedb
-    namespace: default
+    name: *fullname
+    namespace: *release_namespace
 rbacAuthorizationClusterRoleBindingKubedbLicenseReader:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRoleBinding
@@ -747,8 +747,8 @@ rbacAuthorizationClusterRoleBindingKubedbLicenseReader:
     name: appscode:license-reader
   subjects:
   - kind: ServiceAccount
-    name: kubedb
-    namespace: default
+    name: *fullname
+    namespace: *release_namespace
 rbacAuthorizationClusterRoleKubedb:
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
