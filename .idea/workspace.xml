@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="369a8fae-5e7c-4100-99fb-4a9fda7efe3d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/templates/kubedb.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/kubedb.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/templates/kubedb_apiserver_cert.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/kubedb_apiserver_cert.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fuse.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuse.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/values.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,22 +135,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>23</line>
+          <line>20</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>47</line>
+          <line>42</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>74</line>
+          <line>128</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>30</line>
+          <line>25</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

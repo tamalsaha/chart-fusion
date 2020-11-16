@@ -1,0 +1,59 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: kubedb
+  labels:
+    helm.sh/chart: kubedb-v0.15.1
+    app.kubernetes.io/name: kubedb
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.15.1"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  privileged: true  #Allowing privileged pods is necessary for ES db
+  allowPrivilegeEscalation: true #Allowing privilege escalation is necessary for ES db
+  volumes:
+  - "*"
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  allowedCapabilities:
+  - IPC_LOCK
+  - SYS_RESOURCE
+---
+# Source: kubedb/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubedb
+  namespace: default
+  labels:
+    helm.sh/chart: kubedb-v0.15.1
+    app.kubernetes.io/name: kubedb
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.15.1"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: kubedb/templates/apiregistration.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubedb-apiserver-cert
+  namespace: default
+  labels:
+    helm.sh/chart: kubedb-v0.15.1
+    app.kubernetes.io/name: kubedb
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.15.1"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  tls.crt: LS0tLS1C
+  tls.key: LS0

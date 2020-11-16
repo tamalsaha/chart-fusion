@@ -8,14 +8,27 @@ x:
     version: &chart_version {{ .x.chart.version }}
     appVersion: &chart_app_version {{ .x.chart.appVersion }}
   vars:
-    name: &vars_name {{ .x.chart.name | trunc 63 | trimSuffix "-" }}
-    fullname: &vars_fullname {{ if contains .x.chart.name x.release.name }}{{ .x.release.name | trunc 63 | trimSuffix "-" }}{{ else }}{{ printf "%s-%s" .x.release.name .x.chart.name | trunc 63 | trimSuffix "-" }}{{ end }}
+    name: &name {{ .x.chart.name | trunc 63 | trimSuffix "-" }}
+    fullname: &fullname {{ if contains .x.chart.name .x.release.name }}{{ .x.release.name | trunc 63 | trimSuffix "-" }}{{ else }}{{ printf "%s-%s" .x.release.name .x.chart.name | trunc 63 | trimSuffix "-" }}{{ end }}
     chart: &vars_chart {{ printf "%s-%s" .x.chart.name .x.chart.version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
     selector: &selectorLabels
-      app.kubernetes.io/instance: *vars_name
+      app.kubernetes.io/instance: *name
       app.kubernetes.io/name: *release_name
     labels: &labels
       <<: *selectorLabels
       app.kubernetes.io/managed-by: *release_service
       app.kubernetes.io/version:  {{ .x.chart.appVersion | quote }}
       helm.sh/chart: *vars_chart
+{{- range $k, $v := .objects }}
+{{ $k }}:
+  apiVersion: {{ $v.apiVersion }}
+  kind: {{ $v.kind }}
+  metadata:
+    name: *fullname
+    namespace: *release_namespace
+    labels:
+      <<: *labels
+  {{- with omit $v "apiVersion" "kind" "metadata" }}
+  {{- . | toYaml | nindent 2 }}
+  {{- end }}
+{{- end }}
