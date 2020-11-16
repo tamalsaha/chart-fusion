@@ -25,10 +25,10 @@ var (
 	chartName   = "kubedb"
 	releaseName = "kubedb-community"
 	chartSchema = api.JSONSchemaProps{
-		Type: "object",
+		Type:       "object",
 		Properties: map[string]api.JSONSchemaProps{},
 	}
-	registry    = hub.NewRegistryOfKnownResources()
+	registry = hub.NewRegistryOfKnownResources()
 )
 
 func min(x, y int) int {
