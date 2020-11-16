@@ -1,0 +1,26 @@
+{
+  "key": "xyz",
+  "object": {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRoleBinding",
+    "metadata": {
+      "annotations": {
+        "helm.sh/hook": "pre-install,pre-upgrade",
+        "helm.sh/hook-delete-policy": "before-hook-creation"
+      },
+      "name": "kubedb:garbage-collector:psp"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "kubedb:garbage-collector:psp"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "generic-garbage-collector",
+        "namespace": "kube-system"
+      }
+    ]
+  }
+}
