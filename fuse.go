@@ -4,10 +4,14 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"io/ioutil"
+	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/cli-runtime/pkg/resource"
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"path/filepath"
 	"sigs.k8s.io/yaml"
 	"strings"
+	"github.com/gobuffalo/flect"
 )
 
 func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
@@ -53,6 +57,18 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				fmt.Println(string(data))
 				fmt.Println("-------------------------------------|" +
 					info.Name + "|" + info.Namespace + "|" + info.Source)
+
+				accessor, err := meta.Accessor(info.Object)
+				if err != nil {
+					panic(err)
+					return err
+				}
+
+				err = ioutil.WriteFile(filepath.Join("charts", "templates", flect.Underscore(accessor.GetName()) + ".yaml"), data, 0644)
+				if err != nil {
+					panic(err)
+					return err
+				}
 
 				return nil
 			})
