@@ -25,3 +25,7 @@ Get names of each resource
 ```
 helm template kubedb kubedb > /home/tamal/go/src/github.com/tamalsaha/chart-fusion/kubedb/chart.yaml
 ```
+
+render-gotpl --template=templates/object.yaml --data=sample.json > report/README.md
+
+
