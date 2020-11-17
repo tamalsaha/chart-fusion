@@ -33,17 +33,17 @@ func NG(apiVersion, kind, name, fullName string, histogram map[schema.GroupKind]
 	}
 
 	k1 := flect.Underscore(kind)
-	if _, ok := histogramFilename[k1]; !ok {
+	if count, ok := histogramFilename[k1]; ok && count == 1 {
 		return flect.Camelize(kind), nil
 	}
 
 	k2 := flect.Underscore(kind + nameSuffix)
-	if _, ok := histogramFilename[k2]; !ok {
+	if count, ok := histogramFilename[k2]; ok && count == 1 {
 		return flect.Camelize(kind + nameSuffix), nil
 	}
 
 	k3 := flect.Underscore(groupPrefix + kind + nameSuffix)
-	if _, ok := histogramFilename[k3]; !ok {
+	if count, ok := histogramFilename[k3]; ok && count == 1 {
 		return flect.Camelize(groupPrefix + kind + nameSuffix), nil
 	}
 

@@ -1,3 +1,3 @@
-{{- with .Values.apiregistrationAPIServiceV1alpha1ValidatorsKubedbCom }}
+{{- with .Values.apiServiceV1alpha1ValidatorsKubedbCom }}
 {{- . | toYaml }}
 {{- end }}

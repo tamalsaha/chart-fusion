@@ -1,3 +1,3 @@
-{{- with .Values.rbacAuthorizationClusterRoleKubedbGarbageCollectorPsp }}
+{{- with .Values.clusterRoleKubedbGarbageCollectorPsp }}
 {{- . | toYaml }}
 {{- end }}
