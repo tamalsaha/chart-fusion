@@ -27,9 +27,9 @@ helm template kubedb kubedb > /home/tamal/go/src/github.com/tamalsaha/chart-fusi
 ```
 
 ```
-go run *.go fuse -f ./kubedb/chart.yaml
+$ go run *.go fuse -f ./kubedb/chart.yaml
+$ helm template charts | kubectl apply -f -
 ```
-
 
 ## Restrictions
 

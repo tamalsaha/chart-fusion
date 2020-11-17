@@ -597,29 +597,23 @@ job:
     labels:
       <<: *labels
   spec:
-    selector:
-      matchLabels:
-        <<: *selectors
     activeDeadlineSeconds: 120
     backoffLimit: 3
     template:
-      metadata:
-        labels:
-          <<: *labels
       spec:
-        serviceAccountName: *fullname
         containers:
         - command:
           - sh
           - -c
           - sleep 2; kubectl delete validatingwebhookconfigurations validators.kubedb.com
-            || true; kubectl delete mutatingwebhookconfiguration mutators.kubedb.com || true;
-            kubectl delete apiservice v1alpha1.mutators.kubedb.com || true; kubectl delete
-            apiservice v1alpha1.validators.kubedb.com || true;
+            || true; kubectl delete mutatingwebhookconfiguration mutators.kubedb.com
+            || true; kubectl delete apiservice v1alpha1.mutators.kubedb.com || true;
+            kubectl delete apiservice v1alpha1.validators.kubedb.com || true;
           image: appscode/kubectl:v1.16
           imagePullPolicy: IfNotPresent
           name: busybox
         restartPolicy: Never
+        serviceAccountName: kubedb
 mutatingWebhookConfiguration:
   apiVersion: admissionregistration.k8s.io/v1beta1
   kind: MutatingWebhookConfiguration

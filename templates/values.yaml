@@ -25,7 +25,7 @@ x:
     {{- end }}
 {{- range $k, $v := .objects }}
 {{ $k }}:
-{{- if or (contains "apps/" $v.apiVersion) (contains "batch/" $v.apiVersion) }}
+{{- if contains "apps/" $v.apiVersion }}
   apiVersion: {{ $v.apiVersion }}
   kind: {{ $v.kind }}
   metadata:
