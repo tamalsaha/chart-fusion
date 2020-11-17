@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="369a8fae-5e7c-4100-99fb-4a9fda7efe3d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fuse.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuse.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +154,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>313</line>
+          <line>314</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -175,7 +176,7 @@
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <condition expression="f2 == &quot;&quot;" language="go" />
           <url>file://$PROJECT_DIR$/fuse.go</url>
-          <line>260</line>
+          <line>261</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

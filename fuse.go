@@ -12,6 +12,7 @@ import (
 	"github.com/Masterminds/sprig"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"helm.sh/helm/v3/pkg/chart"
 	crdv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -20,7 +21,6 @@ import (
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"kmodules.xyz/resource-metadata/hub"
 	"sigs.k8s.io/yaml"
-	"helm.sh/helm/v3/pkg/chart"
 )
 
 var (
@@ -165,7 +165,7 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			chartSchema.Required = append(chartSchema.Required, "x")
+			// chartSchema.Required = append(chartSchema.Required, "x")
 			chartSchema.Properties["x"] = prop
 
 			err = r.Visit(func(info *resource.Info, err error) error {
@@ -222,6 +222,7 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 					return err
 				}
 				if descriptor.Spec.Validation != nil && descriptor.Spec.Validation.OpenAPIV3Schema != nil {
+					delete(descriptor.Spec.Validation.OpenAPIV3Schema.Properties, "status")
 					chartSchema.Properties[key] = *descriptor.Spec.Validation.OpenAPIV3Schema
 				} else {
 					fmt.Println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> _______", gvr)
@@ -325,12 +326,12 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 			}
 
 			chartMeta := chart.Metadata{
-				Name:         chartName,
-				Home:         "https://byte.builders",
-				Version:      "v0.1.0",
-				Description:  "Ui Wizard Chart",
-				Keywords:     []string{"appscode"},
-				Maintainers:  []*chart.Maintainer{
+				Name:        chartName,
+				Home:        "https://byte.builders",
+				Version:     "v0.1.0",
+				Description: "Ui Wizard Chart",
+				Keywords:    []string{"appscode"},
+				Maintainers: []*chart.Maintainer{
 					{
 						Name:  "AppsCode Engineering",
 						Email: "support@appscode.com",

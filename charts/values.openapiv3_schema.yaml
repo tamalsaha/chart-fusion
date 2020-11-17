@@ -89,41 +89,6 @@ properties:
         - groupPriorityMinimum
         - versionPriority
         type: object
-      status:
-        description: Status contains derived information about an API server
-        properties:
-          conditions:
-            description: Current service state of apiService.
-            items:
-              description: APIServiceCondition describes the state of an APIService
-                at a particular point
-              properties:
-                lastTransitionTime:
-                  description: Last time the condition transitioned from one status
-                    to another.
-                  format: date-time
-                  type: string
-                message:
-                  description: Human-readable message indicating details about last
-                    transition.
-                  type: string
-                reason:
-                  description: Unique, one-word, CamelCase reason for the condition's
-                    last transition.
-                  type: string
-                status:
-                  description: Status is the status of the condition. Can be True,
-                    False, Unknown.
-                  type: string
-                type:
-                  description: Type is the type of the condition.
-                  type: string
-              required:
-              - status
-              - type
-              type: object
-            type: array
-        type: object
     type: object
   apiServiceV1alpha1ValidatorsKubedbCom:
     description: APIService represents a server for a particular GroupVersion. Name
@@ -214,41 +179,6 @@ properties:
         required:
         - groupPriorityMinimum
         - versionPriority
-        type: object
-      status:
-        description: Status contains derived information about an API server
-        properties:
-          conditions:
-            description: Current service state of apiService.
-            items:
-              description: APIServiceCondition describes the state of an APIService
-                at a particular point
-              properties:
-                lastTransitionTime:
-                  description: Last time the condition transitioned from one status
-                    to another.
-                  format: date-time
-                  type: string
-                message:
-                  description: Human-readable message indicating details about last
-                    transition.
-                  type: string
-                reason:
-                  description: Unique, one-word, CamelCase reason for the condition's
-                    last transition.
-                  type: string
-                status:
-                  description: Status is the status of the condition. Can be True,
-                    False, Unknown.
-                  type: string
-                type:
-                  description: Type is the type of the condition.
-                  type: string
-              required:
-              - status
-              - type
-              type: object
-            type: array
         type: object
     type: object
   clusterRoleAppscodeAppcatalogAdmin:
@@ -7502,80 +7432,6 @@ properties:
         - selector
         - template
         type: object
-      status:
-        description: Most recently observed status of the Deployment.
-        properties:
-          availableReplicas:
-            description: Total number of available pods (ready for at least minReadySeconds)
-              targeted by this deployment.
-            format: int32
-            type: integer
-          collisionCount:
-            description: Count of hash collisions for the Deployment. The Deployment
-              controller uses this field as a collision avoidance mechanism when it
-              needs to create the name for the newest ReplicaSet.
-            format: int32
-            type: integer
-          conditions:
-            description: Represents the latest available observations of a deployment's
-              current state.
-            items:
-              description: DeploymentCondition describes the state of a deployment
-                at a certain point.
-              properties:
-                lastTransitionTime:
-                  description: Last time the condition transitioned from one status
-                    to another.
-                  format: date-time
-                  type: string
-                lastUpdateTime:
-                  description: The last time this condition was updated.
-                  format: date-time
-                  type: string
-                message:
-                  description: A human readable message indicating details about the
-                    transition.
-                  type: string
-                reason:
-                  description: The reason for the condition's last transition.
-                  type: string
-                status:
-                  description: Status of the condition, one of True, False, Unknown.
-                  type: string
-                type:
-                  description: Type of deployment condition.
-                  type: string
-              required:
-              - status
-              - type
-              type: object
-            type: array
-          observedGeneration:
-            description: The generation observed by the deployment controller.
-            format: int64
-            type: integer
-          readyReplicas:
-            description: Total number of ready pods targeted by this deployment.
-            format: int32
-            type: integer
-          replicas:
-            description: Total number of non-terminated pods targeted by this deployment
-              (their labels match the selector).
-            format: int32
-            type: integer
-          unavailableReplicas:
-            description: Total number of unavailable pods targeted by this deployment.
-              This is the total number of pods that are still required for the deployment
-              to have 100% available capacity. They may either be pods that are running
-              but not yet available or pods that still have not been created.
-            format: int32
-            type: integer
-          updatedReplicas:
-            description: Total number of non-terminated pods targeted by this deployment
-              that have the desired template spec.
-            format: int32
-            type: integer
-        type: object
     type: object
   job:
     description: Job represents the configuration of a single job.
@@ -13344,67 +13200,6 @@ properties:
         required:
         - template
         type: object
-      status:
-        description: 'Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status'
-        properties:
-          active:
-            description: The number of actively running pods.
-            format: int32
-            type: integer
-          completionTime:
-            description: Represents time when the job was completed. It is not guaranteed
-              to be set in happens-before order across separate operations. It is
-              represented in RFC3339 form and is in UTC.
-            format: date-time
-            type: string
-          conditions:
-            description: 'The latest available observations of an object''s current
-              state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/'
-            items:
-              description: JobCondition describes current state of a job.
-              properties:
-                lastProbeTime:
-                  description: Last time the condition was checked.
-                  format: date-time
-                  type: string
-                lastTransitionTime:
-                  description: Last time the condition transit from one status to
-                    another.
-                  format: date-time
-                  type: string
-                message:
-                  description: Human readable message indicating details about last
-                    transition.
-                  type: string
-                reason:
-                  description: (brief) reason for the condition's last transition.
-                  type: string
-                status:
-                  description: Status of the condition, one of True, False, Unknown.
-                  type: string
-                type:
-                  description: Type of job condition, Complete or Failed.
-                  type: string
-              required:
-              - status
-              - type
-              type: object
-            type: array
-          failed:
-            description: The number of pods which reached phase Failed.
-            format: int32
-            type: integer
-          startTime:
-            description: Represents time when the job was acknowledged by the job
-              controller. It is not guaranteed to be set in happens-before order across
-              separate operations. It is represented in RFC3339 form and is in UTC.
-            format: date-time
-            type: string
-          succeeded:
-            description: The number of pods which reached phase Succeeded.
-            format: int32
-            type: integer
-        type: object
     type: object
   mutatingWebhookConfiguration:
     description: MutatingWebhookConfiguration describes the configuration of and admission
@@ -14442,35 +14237,6 @@ properties:
               in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types'
             type: string
         type: object
-      status:
-        description: 'Most recently observed status of the service. Populated by the
-          system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status'
-        properties:
-          loadBalancer:
-            description: LoadBalancer contains the current status of the load-balancer,
-              if one is present.
-            properties:
-              ingress:
-                description: Ingress is a list containing ingress points for the load-balancer.
-                  Traffic intended for the service should be sent to these ingress
-                  points.
-                items:
-                  description: 'LoadBalancerIngress represents the status of a load-balancer
-                    ingress point: traffic intended for the service should be sent
-                    to an ingress point.'
-                  properties:
-                    hostname:
-                      description: Hostname is set for load-balancer ingress points
-                        that are DNS based (typically AWS load-balancers)
-                      type: string
-                    ip:
-                      description: IP is set for load-balancer ingress points that
-                        are IP based (typically GCE or OpenStack load-balancers)
-                      type: string
-                  type: object
-                type: array
-            type: object
-        type: object
     type: object
   serviceAccount:
     description: 'ServiceAccount binds together: * a name, understood by users, and
@@ -14945,6 +14711,4 @@ properties:
     - release
     - vars
     type: object
-required:
-- x
 type: object
