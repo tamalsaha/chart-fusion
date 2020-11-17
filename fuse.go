@@ -20,6 +20,7 @@ import (
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"kmodules.xyz/resource-metadata/hub"
 	"sigs.k8s.io/yaml"
+	"helm.sh/helm/v3/pkg/chart"
 )
 
 var (
@@ -319,6 +320,30 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 			}
 			filename = filepath.Join("charts", "values.openapiv3_schema.yaml")
 			err = ioutil.WriteFile(filename, data3, 0644)
+			if err != nil {
+				return err
+			}
+
+			chartMeta := chart.Metadata{
+				Name:         chartName,
+				Home:         "https://byte.builders",
+				Version:      "v0.1.0",
+				Description:  "Ui Wizard Chart",
+				Keywords:     []string{"appscode"},
+				Maintainers:  []*chart.Maintainer{
+					{
+						Name:  "AppsCode Engineering",
+						Email: "support@appscode.com",
+						URL:   "https://appscode.com",
+					},
+				},
+			}
+			data4, err := yaml.Marshal(chartMeta)
+			if err != nil {
+				return err
+			}
+			filename = filepath.Join("charts", "Chart.yaml")
+			err = ioutil.WriteFile(filename, data4, 0644)
 			if err != nil {
 				return err
 			}

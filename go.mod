@@ -3,21 +3,20 @@ module github.com/tamalsaha/chart-fusion
 go 1.15
 
 require (
-	github.com/Masterminds/goutils v1.1.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/gobuffalo/flect v0.2.2
 	github.com/huandu/xstrings v1.3.2 // indirect
-	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/pflag v1.0.5
 	gomodules.xyz/x v0.0.0-20201105065653-91c568df6331
-	k8s.io/apiextensions-apiserver v0.18.9
-	k8s.io/apimachinery v0.18.9
-	k8s.io/cli-runtime v0.18.9
+	helm.sh/helm/v3 v3.4.1
+	k8s.io/apiextensions-apiserver v0.19.3
+	k8s.io/apimachinery v0.19.3
+	k8s.io/cli-runtime v0.19.3
 	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/component-base v0.18.9
-	k8s.io/kubectl v0.18.9
+	k8s.io/component-base v0.19.3
+	k8s.io/kubectl v0.19.3
 	kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8
 	kmodules.xyz/resource-metadata v0.4.7
 	sigs.k8s.io/yaml v1.2.0
@@ -75,6 +74,8 @@ replace google.golang.org/genproto => google.golang.org/genproto v0.0.0-20191115
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
 
+replace helm.sh/helm/v3 => github.com/kubepack/helm/v3 v3.3.5-0.20201117014452-f6732bc03450
+
 replace k8s.io/api => github.com/kmodules/api v0.18.10-0.20200922195318-d60fe725dea0
 
 replace k8s.io/apimachinery => github.com/kmodules/apimachinery v0.19.0-alpha.0.0.20200922195535-0c9a1b86beec
@@ -88,6 +89,8 @@ replace k8s.io/client-go => github.com/kmodules/k8s-client-go v0.18.10-0.2020092
 replace k8s.io/component-base => k8s.io/component-base v0.18.9
 
 replace k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
+
+replace k8s.io/kubectl => k8s.io/kubectl v0.18.9
 
 replace k8s.io/kubernetes => github.com/kmodules/kubernetes v1.19.0-alpha.0.0.20200922200158-8b13196d8dc4
 
