@@ -3,30 +3,31 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strings"
+	"text/template"
+
 	"github.com/Masterminds/sprig"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"io/ioutil"
-	api "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	crdv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/cli-runtime/pkg/resource"
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"kmodules.xyz/resource-metadata/hub"
-	"os"
-	"path/filepath"
 	"sigs.k8s.io/yaml"
-	"strings"
-	"text/template"
 )
 
 var (
 	chartName   = "kubedb"
 	releaseName = "kubedb-community"
-	chartSchema = api.JSONSchemaProps{
+	chartSchema = crdv1.JSONSchemaProps{
 		Type:       "object",
-		Properties: map[string]api.JSONSchemaProps{},
+		Properties: map[string]crdv1.JSONSchemaProps{},
 	}
 	registry = hub.NewRegistryOfKnownResources()
 )
@@ -158,7 +159,7 @@ func NewCmdFuse(f cmdutil.Factory) *cobra.Command {
 				return err
 			}
 
-			var prop api.JSONSchemaProps
+			var prop crdv1.JSONSchemaProps
 			err = yaml.Unmarshal(data2, &prop)
 			if err != nil {
 				return err

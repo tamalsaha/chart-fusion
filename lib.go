@@ -1,9 +1,10 @@
 package main
 
 import (
+	"strings"
+
 	"github.com/gobuffalo/flect"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"strings"
 )
 
 func NG(apiVersion, kind, name, fullName string, histogram map[schema.GroupKind]int) (string, error) {

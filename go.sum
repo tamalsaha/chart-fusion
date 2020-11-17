@@ -657,8 +657,8 @@ kmodules.xyz/apiversion v0.2.0/go.mod h1:oPX8g8LvlPdPX3Yc5YvCzJHQnw3YF/X4/jdW0b1
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8 h1:zs2+yI/Ola5HjdtfP29XD76Bx5BO4WchC2uN9lkhxQM=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
 kmodules.xyz/crd-schema-fuzz v0.0.0-20200521005638-2433a187de95/go.mod h1:jpu8xFsDKd6kAWUAKk8oTu/GQGBWqhrcaDeOJdaCJnk=
-kmodules.xyz/resource-metadata v0.4.7-0.20201116231729-b93894134696 h1:4dZcoE/RXdp56h+SavtZuhjFQW9h4LC5BtJlkcOqKq4=
-kmodules.xyz/resource-metadata v0.4.7-0.20201116231729-b93894134696/go.mod h1:H6VUUjSuusM4SfQY9oRy8WvPJIrDdP/WIevnx9pHeh8=
+kmodules.xyz/resource-metadata v0.4.7 h1:nS43t6j6tzhKR0A+6qWwUOHOx2r7ClnCxJvxqzrw9mQ=
+kmodules.xyz/resource-metadata v0.4.7/go.mod h1:H6VUUjSuusM4SfQY9oRy8WvPJIrDdP/WIevnx9pHeh8=
 sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.0.7/go.mod h1:PHgbrJT7lCHcxMU+mDHEm+nx46H4zuuHZkDP6icnhu0=
 sigs.k8s.io/kustomize v2.0.3+incompatible h1:JUufWFNlI44MdtnjUqVnvh29rR37PQFzPbLXqhyOyX0=
 sigs.k8s.io/kustomize v2.0.3+incompatible/go.mod h1:MkjgH3RdOWrievjo6c9T245dYlB5QeXV4WCbnt/PEpU=

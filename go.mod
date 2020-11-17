@@ -19,7 +19,7 @@ require (
 	k8s.io/component-base v0.18.9
 	k8s.io/kubectl v0.18.9
 	kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8
-	kmodules.xyz/resource-metadata v0.4.7-0.20201116231729-b93894134696
+	kmodules.xyz/resource-metadata v0.4.7
 	sigs.k8s.io/yaml v1.2.0
 )
 

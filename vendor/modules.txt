@@ -498,7 +498,7 @@ kmodules.xyz/client-go/apiextensions/v1beta1
 kmodules.xyz/client-go/discovery
 kmodules.xyz/client-go/logs
 kmodules.xyz/client-go/meta
-# kmodules.xyz/resource-metadata v0.4.7-0.20201116231729-b93894134696
+# kmodules.xyz/resource-metadata v0.4.7
 ## explicit
 kmodules.xyz/resource-metadata/apis/meta
 kmodules.xyz/resource-metadata/apis/meta/v1alpha1
