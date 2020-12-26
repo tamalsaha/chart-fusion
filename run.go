@@ -31,6 +31,9 @@ func RunServer() error {
 	m.Get("/", func() string {
 		return "Hello world!"
 	})
+	m.Get("/hello/abc", func(ctx *macaron.Context) string {
+		return "abc"
+	})
 	m.Get("/hello/*", func(ctx *macaron.Context) string {
 		return "Hello " + ctx.Params("*")
 	})

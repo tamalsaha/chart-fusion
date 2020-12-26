@@ -57,5 +57,10 @@ func testLibHelm() error {
 		return err
 	}
 	fmt.Println(string(data))
+
+	for _, f := range chrt.Files {
+		fmt.Println(f.Name)
+	}
+
 	return nil
 }
