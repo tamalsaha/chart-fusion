@@ -34,3 +34,12 @@ $ helm template charts | kubectl apply -f -
 ## Restrictions
 
 - Can't create namespaced resource in multiple different namespaces
+
+
+## Configure Helm
+
+```console
+helm repo add stable https://charts.helm.sh/stable
+helm repo add ui-wizards https://storage.googleapis.com/bundles.kubepack.com/ui
+helm repo update
+```
