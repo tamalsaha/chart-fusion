@@ -20,7 +20,7 @@ require (
 	k8s.io/kubectl v0.18.9
 	kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006
 	kmodules.xyz/resource-metadata v0.4.7
-	kubepack.dev/lib-helm v0.2.0
+	kubepack.dev/lib-helm v0.2.1
 	sigs.k8s.io/yaml v1.2.0
 )
 
