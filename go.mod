@@ -10,15 +10,17 @@ require (
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/pflag v1.0.5
 	gomodules.xyz/x v0.0.0-20201105065653-91c568df6331
+	gopkg.in/macaron.v1 v1.4.0
 	helm.sh/helm/v3 v3.4.1
-	k8s.io/apiextensions-apiserver v0.19.3
-	k8s.io/apimachinery v0.19.3
-	k8s.io/cli-runtime v0.19.3
+	k8s.io/apiextensions-apiserver v0.18.9
+	k8s.io/apimachinery v0.18.9
+	k8s.io/cli-runtime v0.18.9
 	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/component-base v0.19.3
-	k8s.io/kubectl v0.19.3
-	kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8
+	k8s.io/component-base v0.18.9
+	k8s.io/kubectl v0.18.9
+	kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006
 	kmodules.xyz/resource-metadata v0.4.7
+	kubepack.dev/lib-helm v0.2.0
 	sigs.k8s.io/yaml v1.2.0
 )
 
