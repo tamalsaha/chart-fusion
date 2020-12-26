@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 	"gopkg.in/macaron.v1"
 )
@@ -29,6 +30,12 @@ func RunServer() error {
 	})
 	m.Get("/", func() string {
 		return "Hello world!"
+	})
+	m.Get("/hello/*", func(ctx *macaron.Context) string {
+		return "Hello " + ctx.Params("*")
+	})
+	m.Get("/user/*.*", func(ctx *macaron.Context) string {
+		return fmt.Sprintf("Last part is: %s, Ext: %s", ctx.Params(":path"), ctx.Params(":ext"))
 	})
 	m.Run()
 	return nil
