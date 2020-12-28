@@ -37,17 +37,6 @@ func timeIT(f func() error) {
 func testLibHelm() error {
 	reg := repo.NewDiskCacheRegistry()
 
-	reg.Add(&repo.Entry{
-		Name:     "",
-		URL:      "",
-		Username: "",
-		Password: "",
-		CertFile: "",
-		KeyFile:  "",
-		CAFile:   "",
-		Cache:    nil,
-	})
-
 	chrt, err := reg.GetChart("https://charts.appscode.com/stable/", "stash", "v0.11.8")
 	if err != nil {
 		return err
