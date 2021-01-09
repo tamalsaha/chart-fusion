@@ -35,7 +35,7 @@ func RunServer() error {
 		return "abc"
 	})
 	m.Get("/hello/*", func(ctx *macaron.Context) string {
-		return "Hello " + ctx.Params("*")
+		return "Hello " + ctx.Params("*") + "|" + ctx.Params("*")
 	})
 	m.Get("/user/*.*", func(ctx *macaron.Context) string {
 		return fmt.Sprintf("Last part is: %s, Ext: %s", ctx.Params(":path"), ctx.Params(":ext"))
