@@ -20,7 +20,7 @@ func NG(apiVersion, kind, name, fullName string, histogram map[schema.GroupKind]
 	groupPrefix := gv.Group
 	groupPrefix = strings.TrimSuffix(groupPrefix, ".k8s.io")
 	groupPrefix = strings.TrimSuffix(groupPrefix, ".kubernetes.io")
-	groupPrefix = strings.TrimSuffix(groupPrefix, ".x-k8s.io")
+	//groupPrefix = strings.TrimSuffix(groupPrefix, ".x-k8s.io")
 	groupPrefix = strings.Replace(groupPrefix, ".", "_", -1)
 	groupPrefix = flect.Pascalize(groupPrefix)
 
@@ -59,7 +59,7 @@ func NameChoices(apiVersion, kind, name, fullName string) (string, string, strin
 	groupPrefix := gv.Group
 	groupPrefix = strings.TrimSuffix(groupPrefix, ".k8s.io")
 	groupPrefix = strings.TrimSuffix(groupPrefix, ".kubernetes.io")
-	groupPrefix = strings.TrimSuffix(groupPrefix, ".x-k8s.io")
+	//groupPrefix = strings.TrimSuffix(groupPrefix, ".x-k8s.io")
 	groupPrefix = strings.Replace(groupPrefix, ".", "_", -1)
 	groupPrefix = flect.Pascalize(groupPrefix)
 
