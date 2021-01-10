@@ -1,0 +1,340 @@
+grafanaSearchlightDevDashboardMongodbEditor:
+  apiVersion: grafana.searchlight.dev/v1alpha1
+  kind: Dashboard
+  metadata:
+    labels:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 0.1.0
+      helm.sh/chart: mongodb-0.1.0
+    name: RELEASE-NAME-mongodb
+    namespace: default
+  spec:
+    folderId: 0
+    grafana:
+      name: grafana
+    model:
+      editable: true
+      gnetId: null
+      hideControls: true
+      refresh: 5m
+      rows:
+      - collapse: false
+        height: 150px
+        panels:
+        - aliasColors: {}
+          bars: false
+          datasource: Some Prometheus
+          editable: false
+          error: false
+          fill: 10
+          grid:
+            leftLogBase: null
+            leftMax: null
+            leftMin: null
+            rightLogBase: null
+            rightMax: null
+            rightMin: null
+            threshold1: null
+            threshold1Color: ""
+            threshold2: null
+            threshold2Color: ""
+            thresholdLine: false
+          height: "220"
+          id: 3
+          isNew: false
+          legend:
+            alignAsTable: true
+            avg: true
+            current: true
+            hideEmpty: false
+            hideZero: false
+            max: true
+            min: true
+            rightSide: true
+            show: true
+            sideWidth: 450
+            total: false
+            values: true
+          lines: true
+          linewidth: 0
+          links: []
+          nullPointMode: null as zero
+          percentage: true
+          pointradius: 5
+          points: false
+          renderer: flot
+          seriesOverrides: []
+          span: 12
+          stack: true
+          steppedLine: false
+          targets:
+          - datasource: ""
+            expr: some_expression
+            interval: 1m
+            intervalFactor: 1
+            legendFormat: ""
+            refId: B
+            step: 60
+          thresholds: []
+          timeFrom: null
+          timeShift: null
+          title: Some panel
+          tooltip:
+            msResolution: false
+            shared: true
+            sort: 0
+            value_type: cumulative
+          transparent: false
+          type: graph
+          x-axis: false
+          xaxis:
+            mode: time
+            name: null
+            show: true
+            values: []
+          y-axis: false
+          y_formats: null
+          yaxes:
+          - format: short
+            logBase: 1
+            max: "100"
+            min: "0"
+            show: true
+          - format: short
+            logBase: 1
+            max: null
+            min: null
+            show: false
+        - aliasColors: {}
+          bars: false
+          datasource: Some Prometheus
+          editable: false
+          error: false
+          fill: 5
+          grid:
+            leftLogBase: null
+            leftMax: null
+            leftMin: null
+            rightLogBase: null
+            rightMax: null
+            rightMin: null
+            threshold1: null
+            threshold1Color: ""
+            threshold2: null
+            threshold2Color: ""
+            thresholdLine: false
+          height: 220px
+          id: 4
+          isNew: false
+          legend:
+            alignAsTable: true
+            avg: true
+            current: true
+            hideEmpty: false
+            hideZero: false
+            max: true
+            min: true
+            rightSide: true
+            show: true
+            sideWidth: 450
+            total: false
+            values: true
+          lines: true
+          linewidth: 1
+          links: []
+          nullPointMode: null as zero
+          percentage: false
+          pointradius: 5
+          points: false
+          renderer: flot
+          seriesOverrides: []
+          span: 12
+          stack: true
+          steppedLine: false
+          targets:
+          - datasource: ""
+            expr: some_expression
+            interval: 1m
+            intervalFactor: 1
+            legendFormat: ""
+            refId: B
+            step: 60
+          thresholds: []
+          timeFrom: null
+          timeShift: null
+          title: One more panel
+          tooltip:
+            msResolution: false
+            shared: true
+            sort: 0
+            value_type: individual
+          transparent: false
+          type: graph
+          x-axis: false
+          xaxis:
+            mode: time
+            name: null
+            show: true
+            values: []
+          y-axis: false
+          y_formats: null
+          yaxes:
+          - format: short
+            logBase: 1
+            max: null
+            min: 0
+            show: true
+          - format: short
+            logBase: 1
+            max: 50
+            min: null
+            show: true
+        repeat: null
+        repeatIteration: null
+        repeatRowId: null
+        showTitle: false
+        title: Row
+        titleSize: h6
+      schemaVersion: 1
+      sharedCrosshair: true
+      style: dark
+      tags: []
+      templating:
+        list: []
+      time:
+        from: now-3h
+        to: now
+      timepicker:
+        now: true
+        refresh_intervals:
+        - 5s
+        time_options:
+        - 5m
+      timezone: browser
+      title: Sample dashboard with empty panels
+      version: 1
+    overwrite: true
+kubedbComMongoDBMongodbEditor:
+  apiVersion: kubedb.com/v1alpha2
+  kind: MongoDB
+  metadata:
+    annotations: null
+    labels:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 0.1.0
+      helm.sh/chart: mongodb-0.1.0
+    name: RELEASE-NAME-mongodb
+    namespace: default
+  spec:
+    clusterAuthMode: keyFile
+    podTemplate:
+      spec:
+        resources: {}
+        securityContext: {}
+        serviceAccountName: RELEASE-NAME-mongodb
+    serviceTemplate:
+      spec:
+        type: ClusterIP
+    shardTopology:
+      configServer:
+        replicas: 3
+        storage:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+      mongos:
+        replicas: 2
+        strategy:
+          type: RollingUpdate
+      shard:
+        replicas: 3
+        shards: 3
+        storage:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+    sslMode: disabled
+    storage:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+    storageType: Durable
+    terminationPolicy: WipeOut
+    updateStrategy:
+      type: OnDelete
+    version: 3.4.17
+secretMongodbEditor:
+  apiVersion: v1
+  data: null
+  kind: Secret
+  metadata:
+    labels:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 0.1.0
+      helm.sh/chart: mongodb-0.1.0
+    name: RELEASE-NAME-mongodb
+    namespace: default
+  type: Opaque
+stashAppscodeComBackupConfigurationMongodbEditor:
+  apiVersion: stash.appscode.com/v1beta1
+  kind: BackupConfiguration
+  metadata:
+    labels:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 0.1.0
+      helm.sh/chart: mongodb-0.1.0
+    name: RELEASE-NAME-mongodb
+    namespace: default
+  spec:
+    repository:
+      name: RELEASE-NAME-mongodb
+    retentionPolicy:
+      keepLast: 5
+      name: keep-last-5
+      prune: true
+    runtimeSettings:
+      container:
+        resources: {}
+        securityContext: {}
+      pod:
+        securityContext: {}
+    schedule: 0 */8 * * *
+    target:
+      ref:
+        apiVersion: appcatalog.appscode.com/v1alpha1
+        kind: AppBinding
+        name: RELEASE-NAME-mongodb
+    task:
+      name: mongodb-backup-3.4.17
+stashAppscodeComRepositoryMongodbEditor:
+  apiVersion: stash.appscode.com/v1alpha1
+  kind: Repository
+  metadata:
+    labels:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 0.1.0
+      helm.sh/chart: mongodb-0.1.0
+    name: RELEASE-NAME-mongodb
+    namespace: default
+  spec:
+    backend:
+      s3:
+        bucket: kubedb-demo
+        prefix: /profiles
+      storageSecretName: RELEASE-NAME-mongodb

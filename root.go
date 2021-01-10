@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"github.com/tamalsaha/chart-fusion/fuse"
 
 	"github.com/spf13/cobra"
 	v "gomodules.xyz/x/version"
@@ -38,6 +39,7 @@ func NewRootCmd() *cobra.Command {
 	rootCmd.AddCommand(NewCmdRun())
 	rootCmd.AddCommand(NewCmdHelm())
 	rootCmd.AddCommand(NewCmdFuse(f))
+	rootCmd.AddCommand(fuse.NewCmdFuse())
 	rootCmd.AddCommand(NewCmdMerge())
 	rootCmd.AddCommand(NewCmdAppGen())
 
