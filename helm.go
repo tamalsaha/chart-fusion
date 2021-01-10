@@ -47,7 +47,7 @@ func testLibHelm() error {
 	}
 	fmt.Println(string(data))
 
-	for _, f := range chrt.Files {
+	for _, f := range chrt.Raw {
 		fmt.Println(f.Name)
 	}
 
