@@ -5,10 +5,8 @@ go 1.15
 require (
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	github.com/go-openapi/spec v0.19.8
 	github.com/gobuffalo/flect v0.2.2
 	github.com/gogo/protobuf v1.3.1
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/pflag v1.0.5
@@ -21,10 +19,9 @@ require (
 	k8s.io/cli-runtime v0.18.9
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/component-base v0.18.9
-	k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
 	k8s.io/kubectl v0.18.9
 	kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006
-	kmodules.xyz/resource-metadata v0.4.7
+	kmodules.xyz/resource-metadata v0.4.8-0.20210109211859-ee04a80b905a
 	kubepack.dev/kubepack v0.2.2-0.20201228191331-2fb57a82eaa6
 	kubepack.dev/lib-helm v0.2.1
 	sigs.k8s.io/application v0.8.2-0.20200306235134-f10d9ca8abd4
