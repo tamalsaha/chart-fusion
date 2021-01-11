@@ -32,7 +32,6 @@ var (
 	sampleDir   = "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/fuse/samples"
 	chartDir    = "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/fuse/charts"
 	chartName   = "mongodb-editor"
-	releaseName = "default"
 	chartSchema = crdv1.JSONSchemaProps{
 		Type:       "object",
 		Properties: map[string]crdv1.JSONSchemaProps{},
@@ -233,7 +232,6 @@ func NewCmdFuse() *cobra.Command {
 	cmd.Flags().StringVar(&sampleDir, "sample-dir", sampleDir, "Sample dir")
 	cmd.Flags().StringVar(&chartDir, "chart-dir", chartDir, "Charts dir")
 	cmd.Flags().StringVar(&chartName, "chart-name", chartName, "Charts name")
-	cmd.Flags().StringVar(&releaseName, "release-name", releaseName, "Release name")
 
 	return cmd
 }
