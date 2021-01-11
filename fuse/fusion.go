@@ -37,47 +37,10 @@ var (
 		Type:       "object",
 		Properties: map[string]crdv1.JSONSchemaProps{},
 	}
-	model = ValuesModel{
-		X: X{
-			Release: Release{
-				Name:      "kubedb-community",
-				Namespace: "demo",
-				Service:   "Helm",
-			},
-			Chart: Chart{
-				Name:       "kubedb",
-				Version:    "v0.15.0",
-				AppVersion: "v0.15.0",
-			},
-		},
-		Objects: map[string]*unstructured.Unstructured{},
-	}
 	modelValues  = map[string]ObjectContainer{}
 	registry     = hub.NewRegistryOfKnownResources()
 	resourceKeys = sets.NewString()
 )
-
-type Release struct {
-	Name      string `json:"name"`
-	Namespace string `json:"namespace"`
-	Service   string `json:"service"`
-}
-
-type Chart struct {
-	Name       string `json:"name"`
-	Version    string `json:"version"`
-	AppVersion string `json:"appVersion"`
-}
-
-type X struct {
-	Release Release `json:"release"`
-	Chart   Chart   `json:"chart"`
-}
-
-type ValuesModel struct {
-	X       X                                     `json:"x"`
-	Objects map[string]*unstructured.Unstructured `json:"objects"`
-}
 
 type ObjectModel struct {
 	Key    string                     `json:"key"`
@@ -85,7 +48,7 @@ type ObjectModel struct {
 }
 
 type ObjectContainer struct {
-	metav1.TypeMeta   `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 }
 
 func NewCmdFuse() *cobra.Command {
@@ -113,7 +76,6 @@ func NewCmdFuse() *cobra.Command {
 				_, _, rsFilename := resourceFilename(obj.GetAPIVersion(), obj.GetKind(), chartName, obj.GetName())
 
 				// values
-				model.Objects[rsKey] = obj
 				modelValues[rsKey] = ObjectContainer{
 					TypeMeta: metav1.TypeMeta{
 						APIVersion: obj.GetAPIVersion(),
@@ -158,11 +120,14 @@ func NewCmdFuse() *cobra.Command {
 					panic(err)
 				}
 
-				localTplFile := "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/templates/object.yaml"
+				resourceTemplate := `{{"{{- with .Values."}}{{ .key }} {{"}}"}}
+{{"{{- . | toYaml }}"}}
+{{"{{- end }}"}}
+`
 				funcMap := sprig.TxtFuncMap()
 				funcMap["toYaml"] = toYAML
 				funcMap["toJson"] = toJSON
-				tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+				tpl := template.Must(template.New("resourceTemplate").Funcs(funcMap).Parse(resourceTemplate))
 				err = tpl.Execute(f, &data)
 				if err != nil {
 					return err
@@ -186,35 +151,6 @@ func NewCmdFuse() *cobra.Command {
 				}
 			}
 
-			{
-				modelJSON, err := json.Marshal(model)
-				if err != nil {
-					return err
-				}
-
-				var data map[string]interface{}
-				err = json.Unmarshal(modelJSON, &data)
-				if err != nil {
-					panic(err)
-				}
-
-				filename := filepath.Join(chartDir, chartName, "values.yaml")
-				f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
-				if err != nil {
-					return err
-				}
-				defer f.Close()
-
-				localTplFile := "/home/tamal/go/src/github.com/tamalsaha/chart-fusion/templates/values.yaml"
-				funcMap := sprig.TxtFuncMap()
-				funcMap["toYaml"] = toYAML
-				funcMap["toJson"] = toJSON
-				tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
-				err = tpl.Execute(f, &data)
-				if err != nil {
-					return err
-				}
-			}
 			{
 				data, err := yaml.Marshal(modelValues)
 				if err != nil {
