@@ -42,6 +42,7 @@ func NewRootCmd() *cobra.Command {
 	rootCmd.AddCommand(fuse.NewCmdFuse())
 	rootCmd.AddCommand(NewCmdMerge())
 	rootCmd.AddCommand(NewCmdAppGen())
+	rootCmd.AddCommand(NewCmdDocComment())
 
 	return rootCmd
 }

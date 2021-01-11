@@ -378,7 +378,7 @@ github.com/mattn/go-colorable
 github.com/mattn/go-ieproxy
 # github.com/mattn/go-isatty v0.0.12
 github.com/mattn/go-isatty
-# github.com/mattn/go-runewidth v0.0.6
+# github.com/mattn/go-runewidth v0.0.7
 github.com/mattn/go-runewidth
 # github.com/matttproud/golang_protobuf_extensions v1.0.1
 github.com/matttproud/golang_protobuf_extensions/pbutil
@@ -433,7 +433,7 @@ github.com/rubenv/sql-migrate/sqlparse
 github.com/russross/blackfriday
 # github.com/russross/blackfriday/v2 v2.0.1
 github.com/russross/blackfriday/v2
-# github.com/sergi/go-diff v1.0.0
+# github.com/sergi/go-diff v1.1.0
 github.com/sergi/go-diff/diffmatchpatch
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
@@ -749,6 +749,9 @@ gopkg.in/macaron.v1
 gopkg.in/natefinch/lumberjack.v2
 # gopkg.in/yaml.v2 v2.3.0
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.0-20200603094226-e3079894b1e8
+## explicit
+gopkg.in/yaml.v3
 # helm.sh/helm/v3 v3.4.1 => github.com/kubepack/helm/v3 v3.3.5-0.20201117014452-f6732bc03450
 ## explicit
 helm.sh/helm/v3/internal/experimental/registry
@@ -1378,6 +1381,9 @@ kmodules.xyz/resource-metadata/hub/resourcedescriptors
 # kmodules.xyz/webhook-runtime v0.0.0-20201105073856-2dc7382b88c6
 kmodules.xyz/webhook-runtime/admission/v1beta1
 kmodules.xyz/webhook-runtime/registry/admissionreview/v1beta1
+# kubepack.dev/chart-doc-gen v0.3.1-0.20210111011933-daa7c1d70a65
+## explicit
+kubepack.dev/chart-doc-gen/api
 # kubepack.dev/kubepack v0.2.2-0.20201228191331-2fb57a82eaa6
 ## explicit
 kubepack.dev/kubepack/apis

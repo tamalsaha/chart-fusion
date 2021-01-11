@@ -4,8 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	y3 "gopkg.in/yaml.v3"
 	"io"
 	"io/ioutil"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/sets"
+	"kubepack.dev/chart-doc-gen/api"
 	"os"
 	"path/filepath"
 	"strings"
@@ -48,8 +52,9 @@ var (
 		},
 		Objects: map[string]*unstructured.Unstructured{},
 	}
-	modelValues = map[string]*unstructured.Unstructured{}
-	registry = hub.NewRegistryOfKnownResources()
+	modelValues  = map[string]*unstructured.Unstructured{}
+	registry     = hub.NewRegistryOfKnownResources()
+	resourceKeys = sets.NewString()
 )
 
 type Release struct {
@@ -70,8 +75,7 @@ type X struct {
 }
 
 type ValuesModel struct {
-	X       X                         `json:"x"`
-
+	X       X                                     `json:"x"`
 	Objects map[string]*unstructured.Unstructured `json:"objects"`
 }
 
@@ -101,6 +105,7 @@ func NewCmdFuse() *cobra.Command {
 				if err != nil {
 					return err
 				}
+				resourceKeys.Insert(rsKey)
 				_, _, rsFilename := resourceFilename(obj.GetAPIVersion(), obj.GetKind(), chartName, obj.GetName())
 
 				// values
@@ -207,7 +212,69 @@ func NewCmdFuse() *cobra.Command {
 					panic(err)
 				}
 
+				var root y3.Node
+				err = y3.Unmarshal(data, &root)
+				if err != nil {
+					return err
+				}
+				addDocComments(&root)
+
+				//data, err = y3.Marshal(&root)
+				//if err != nil {
+				//	return err
+				//}
+
+				var buf bytes.Buffer
+				enc := y3.NewEncoder(&buf)
+				enc.SetIndent(2)
+				defer enc.Close()
+				err = enc.Encode(&root)
+				if err != nil {
+					return err
+				}
+
 				filename := filepath.Join(chartDir, chartName, "values.yaml")
+				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+				if err != nil {
+					return err
+				}
+			}
+
+			{
+				desc := flect.Titleize(strings.ReplaceAll(chartName, "-", " "))
+				doc := api.DocInfo{
+					Project: api.ProjectInfo{
+						Name:        fmt.Sprintf("%s by AppsCode", desc),
+						ShortName:   fmt.Sprintf("%s", desc),
+						URL:         "https://byte.builders",
+						Description: fmt.Sprintf("%s", desc),
+						App:         fmt.Sprintf("a %s", desc),
+					},
+					Repository: api.RepositoryInfo{
+						URL:  "https://bundles.bytebuilders.dev/ui/",
+						Name: "bytebuilders-ui",
+					},
+					Chart: api.ChartInfo{
+						Name:          chartName,
+						Version:       "v0.1.0",
+						Values:        "-- generate from values file --",
+						ValuesExample: "-- generate from values file --",
+					},
+					Prerequisites: []string{
+						"Kubernetes 1.14+",
+					},
+					Release: api.ReleaseInfo{
+						Name:      chartName,
+						Namespace: metav1.NamespaceDefault,
+					},
+				}
+
+				data, err := yaml.Marshal(&doc)
+				if err != nil {
+					return err
+				}
+
+				filename := filepath.Join(chartDir, chartName, "doc.yaml")
 				err = ioutil.WriteFile(filename, data, 0644)
 				if err != nil {
 					return err
@@ -358,4 +425,13 @@ func toJSON(v interface{}) string {
 		return ""
 	}
 	return string(data)
+}
+
+func addDocComments(node *y3.Node) {
+	if node.Tag == "!!str" && resourceKeys.Has(node.Value) {
+		node.LineComment = "# +doc-gen:break"
+	}
+	for i := range node.Content {
+		addDocComments(node.Content[i])
+	}
 }

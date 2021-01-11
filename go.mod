@@ -13,6 +13,7 @@ require (
 	gomodules.xyz/runtime v0.0.0-20201104200926-d838b09dda8b
 	gomodules.xyz/x v0.0.0-20201105065653-91c568df6331
 	gopkg.in/macaron.v1 v1.4.0
+	gopkg.in/yaml.v3 v3.0.0-20200603094226-e3079894b1e8
 	helm.sh/helm/v3 v3.4.1
 	k8s.io/apiextensions-apiserver v0.18.9
 	k8s.io/apimachinery v0.18.9
@@ -22,6 +23,7 @@ require (
 	k8s.io/kubectl v0.18.9
 	kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006
 	kmodules.xyz/resource-metadata v0.4.8-0.20210109211859-ee04a80b905a
+	kubepack.dev/chart-doc-gen v0.3.1-0.20210111011933-daa7c1d70a65
 	kubepack.dev/kubepack v0.2.2-0.20201228191331-2fb57a82eaa6
 	kubepack.dev/lib-helm v0.2.1
 	sigs.k8s.io/application v0.8.2-0.20200306235134-f10d9ca8abd4
