@@ -52,7 +52,7 @@ var (
 		},
 		Objects: map[string]*unstructured.Unstructured{},
 	}
-	modelValues  = map[string]*unstructured.Unstructured{}
+	modelValues  = map[string]ObjectContainer{}
 	registry     = hub.NewRegistryOfKnownResources()
 	resourceKeys = sets.NewString()
 )
@@ -84,6 +84,10 @@ type ObjectModel struct {
 	Object *unstructured.Unstructured `json:"object"`
 }
 
+type ObjectContainer struct {
+	metav1.TypeMeta   `json:",inline"`
+}
+
 func NewCmdFuse() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "fuse-chart",
@@ -110,7 +114,12 @@ func NewCmdFuse() *cobra.Command {
 
 				// values
 				model.Objects[rsKey] = obj
-				modelValues[rsKey] = obj
+				modelValues[rsKey] = ObjectContainer{
+					TypeMeta: metav1.TypeMeta{
+						APIVersion: obj.GetAPIVersion(),
+						Kind:       obj.GetKind(),
+					},
+				}
 
 				// schema
 				gvr, err := registry.GVR(obj.GetObjectKind().GroupVersionKind())
